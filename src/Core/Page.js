@@ -10,10 +10,8 @@ export default class Page extends Component {
     document.title = this.props.title
   }
   render () {
-    const { children, ...rest } = this.props
-
     return (
-      <StyledPage {...rest}>{children}</StyledPage>
+      <StyledPage {...this.props} />
     )
   }
 }

@@ -3,9 +3,8 @@ import { StyledBlock } from './Styled'
 
 export default class Block extends Component {
   render () {
-    const { children, ...rest } = this.props
     return (
-      <StyledBlock {...rest}>{children}</StyledBlock>
+      <StyledBlock {...this.props} />
     )
   }
 }
