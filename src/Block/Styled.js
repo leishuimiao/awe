@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { theme, mainPadding } from '../styles/vars'
+import { grey, mainPadding } from '../Theme'
 
 const StyledBlock = styled.div.attrs({
   className: `${UI_NAME}-block`
@@ -9,7 +9,7 @@ const StyledBlock = styled.div.attrs({
   z-index: 1;
   padding: 0 ${mainPadding};
   margin: 35px 0;
-  color: ${theme.gray};
+  color: ${grey};
   text-align: justify;
 
   p:first-child {
@@ -32,7 +32,7 @@ const StyledBlockTitle = styled.div.attrs({
   line-height: 17px;
   font-size: 14px;
   text-transform: uppercase;
-  color: ${theme.gray};
+  color: ${grey};
 
   + ${StyledBlock}, + .${UI_NAME}-list {
     margin-top: 10px;

@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "color-alpha": "^1.0.3",
     "dom-helpers": "^3.4.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -60,7 +61,10 @@
     "styled-components": "^4.1.1"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": ["npm run lint-staged:js", "git add"]
+    "**/*.{js,jsx}": [
+      "npm run lint-staged:js",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Page, PageContent, Link } from '../../src/Core'
-import { List, ListItem } from '../../src/ListView'
-import { BlockTitle } from '../../src/Block'
+import { Page, PageContent, Link } from '@src/Core'
+import { List, ListItem } from '@src/ListView'
+import { BlockTitle } from '@src/Block'
 
 export default class index extends Component {
   render () {
@@ -10,6 +10,7 @@ export default class index extends Component {
         <PageContent>
           <BlockTitle>组件(Components)</BlockTitle>
           <List>
+            <ListItem title="Button" arrow as={Link} to="/button" />
             <ListItem title="Grid" arrow as={Link} to="/grid" />
             <ListItem title="List View" arrow as={Link} to="/listview" />
           </List>

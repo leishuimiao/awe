@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import retinaline, { removeRetinaline } from '../styles/retinaline'
-import { theme, mainPadding } from '../styles/vars'
+import { borderColor, mainPadding } from '../Theme'
 
 const StyledItemTitle = styled.div.attrs({
   className: `${UI_NAME}-item-title`
@@ -22,7 +22,7 @@ const StyledListItem = styled.div.attrs({
   padding-left: ${mainPadding};
   transition: background .2s ease;
 
-  &.active {
+  &.active-state {
     background: #D9D9D9;
   }
 `
@@ -51,7 +51,7 @@ const StyledListItemInner = styled.div.attrs({
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%228%22%20height%3D%2213%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%20%3Cpath%20fill%3D%22%23c7c7cc%22%20d%3D%22M7.86396103%206.5L1.5.13603897.08578644%201.55025253%205.0355339%206.5.08578644%2011.44974747%201.5%2012.86396103l5.65685425-5.65685425z%22%2F%3E%3C%2Fsvg%3E");
   `}
 
-  ${retinaline('bottom', theme.borderColor)}
+  ${retinaline('bottom', borderColor)}
 `
 
 const StyledListItemMedia = styled.div.attrs({
@@ -92,8 +92,8 @@ const StyledList = styled.div`
     padding: 0;
     margin: 0;
     background: #fff;
-    ${retinaline('top', theme.borderColor)}
-    ${retinaline('bottom', theme.borderColor)}
+    ${retinaline('top', borderColor)}
+    ${retinaline('bottom', borderColor)}
 
     ${props => props.inset && `
       border-radius: 7px;
@@ -248,7 +248,7 @@ const StyledDivider = styled.div.attrs({
   text-overflow: ellipsis;
   overflow: hidden;
 
-  ${retinaline('top', theme.borderColor)}
+  ${retinaline('top', borderColor)}
 `
 
 const StyledListGroup = styled.div.attrs({

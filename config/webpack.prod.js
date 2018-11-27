@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const buildPath = path.resolve(__dirname, '../build');
+const getRootPath = (pathName) => path.resolve(__dirname, pathName ? `../${pathName}/` : '');
 
 module.exports = {
     // 打包环境：开发 & 生产
@@ -16,8 +16,15 @@ module.exports = {
     // 出口：有且只能有一个
     output: {
         filename: 'static/js/[name].[hash:8].js',
-        path: buildPath,
+        path: getRootPath('build'),
         publicPath: ''
+    },
+    // 模块解析
+    resolve: {
+        alias: {
+            '@src': getRootPath('src'),
+            '@example': getRootPath('example')
+        }
     },
     module: {
         rules: [
@@ -108,7 +115,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin([buildPath], {root: process.cwd()}),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../example/index.html') //new 一个这个插件的实例，并传入相关的参数
+            template: getRootPath('example/index.html') //new 一个这个插件的实例，并传入相关的参数
         }),
         new MiniCssExtractPlugin({
             filename: 'static/css/[name].[hash:8].css',

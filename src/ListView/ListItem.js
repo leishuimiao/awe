@@ -48,7 +48,7 @@ class ListItem extends Component {
 
     return (
       <li>
-        {!divider && <TouchFeedback activeClassName="active" disabled={!arrow}>
+        {!divider && <TouchFeedback activeClassName="active-state" disabled={!arrow}>
           <StyledListItem {...rest}>
             {children && <StyledListItemMedia>{children}</StyledListItemMedia>}
             <StyledListItemInner arrow={arrow}>

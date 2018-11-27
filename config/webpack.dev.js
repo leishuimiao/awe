@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const EslintFriendlyFormatter = require('eslint-friendly-formatter');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const getRootPath = (pathName) => path.resolve(__dirname, pathName ? `../${pathName}/` : '');
+
 module.exports = {
     // 打包环境：开发 & 生产
     mode: 'development',
@@ -13,13 +15,20 @@ module.exports = {
     // 出口：有且只能有一个
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: getRootPath('dist'),
         publicPath: '/'
+    },
+    // 模块解析
+    resolve: {
+        alias: {
+            '@src': getRootPath('src'),
+            '@example': getRootPath('example')
+        }
     },
     // 本地服务器
     devServer: {
         // 本地服务器所加载的页面所在的目录
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: getRootPath('dist'),
         // 页面是否显示错误信息
         overlay: true,
         // 不跳转
@@ -100,7 +109,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../example/index.html') //new 一个这个插件的实例，并传入相关的参数
+            template: getRootPath('example/index.html') //new 一个这个插件的实例，并传入相关的参数
         }),
         new webpack.DefinePlugin({
             // Definitions...

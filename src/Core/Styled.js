@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import { theme } from '../styles/vars'
+import theme from '../Theme'
 import { TransitionGroup } from 'react-transition-group'
 
 const GlobalStyled = createGlobalStyle`
@@ -7,7 +7,7 @@ const GlobalStyled = createGlobalStyle`
     position: relative;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
   }
   body {
     font-family: PingFang SC ,PingHei, DroidSansFallback, Hiragino Sans GB, STHeiti, Roboto, Noto, Helvetica Neue, Helvetica, Arial, SimSun, sans-serif;
@@ -49,7 +49,7 @@ const GlobalStyled = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: ${theme.color};
+    color: ${theme.main};
   }
 
   p {

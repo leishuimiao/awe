@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Page, PageContent } from '../../../src/Core'
-import { List, ListItem, ListGroup } from '../../../src/ListView'
-import { Block, BlockTitle, BlockFooter } from '../../../src/Block'
-import aweSvg from '../../assets/images/icon-awe.svg'
-import mediaListImg1 from '../../assets/images/medialist-img-1.jpeg'
-import mediaListImg2 from '../../assets/images/medialist-img-2.jpeg'
-import mediaListImg3 from '../../assets/images/medialist-img-3.jpeg'
+import { Page, PageContent } from '@src/Core'
+import { List, ListItem, ListGroup } from '@src/ListView'
+import { Block, BlockTitle, BlockFooter } from '@src/Block'
+import aweSvg from '@example/assets/images/icon-awe.svg'
+import mediaListImg1 from '@example/assets/images/medialist-img-1.jpeg'
+import mediaListImg2 from '@example/assets/images/medialist-img-2.jpeg'
+import mediaListImg3 from '@example/assets/images/medialist-img-3.jpeg'
 
 export default class index extends Component {
   render () {

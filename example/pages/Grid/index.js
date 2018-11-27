@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Page, PageContent } from '../../../src/Core'
-import { Block, BlockTitle } from '../../../src/Block'
-import { Row, Col } from '../../../src/Grid'
+import { Page, PageContent } from '@src/Core'
+import { Block, BlockTitle } from '@src/Block'
+import { Row, Col } from '@src/Grid'
 
 export default class index extends Component {
   render () {

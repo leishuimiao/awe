@@ -53,7 +53,8 @@ module.exports = {
     }],
     //定义字符串不规范错误，要求字符串使用双引号
     quotes: ["error", "single"],
-    "jsx-quotes": ["error", "prefer-double"]
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/prop-types": 0
     //....
     //更多规则可查看https://eslint.org/docs/rules/
   }
