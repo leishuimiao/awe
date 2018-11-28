@@ -19,13 +19,16 @@ function retinaline (position, color) {
           z-index: 15;
 
           html.pixel-ratio-2 & {
-              transform: scaleY(0.5);
+            top: -0.5px;
+            transform: scaleY(0.5);
           }
           html.pixel-ratio-3 & {
-              transform: scaleY(0.33);
+            top: -0.33px;
+            transform: scaleY(0.33);
           }
           html.pixel-ratio-4 & {
-              transform: scaleY(0.25);
+            top: -0.25px;
+            transform: scaleY(0.25);
           }
       }
      `
@@ -46,13 +49,16 @@ function retinaline (position, color) {
            z-index: 15;
 
            html.pixel-ratio-2 & {
-               transform: scaleX(0.5);
+            left: -0.5px;
+            transform: scaleX(0.5);
            }
            html.pixel-ratio-3 & {
-               transform: scaleX(0.33);
+            left: -0.33px;
+            transform: scaleX(0.33);
            }
            html.pixel-ratio-4 & {
-               transform: scaleX(0.25);
+            left: -0.25px;
+            transform: scaleX(0.25);
            }
        }
       `
@@ -73,13 +79,16 @@ function retinaline (position, color) {
            z-index: 15;
 
            html.pixel-ratio-2 & {
-               transform: scaleY(0.5);
+            bottom: -0.5px;
+            transform: scaleY(0.5);
            }
            html.pixel-ratio-3 & {
-               transform: scaleY(0.33);
+            bottom: -0.33px;
+            transform: scaleY(0.33);
            }
            html.pixel-ratio-4 & {
-               transform: scaleY(0.25);
+            bottom: -0.25px;
+            transform: scaleY(0.25);
            }
        }
       `
@@ -100,13 +109,16 @@ function retinaline (position, color) {
            z-index: 15;
 
            html.pixel-ratio-2 & {
-               transform: scaleX(0.5);
+            right: -0.5px;
+            transform: scaleX(0.5);
            }
            html.pixel-ratio-3 & {
-               transform: scaleX(0.33);
+            right: -0.33px;
+            transform: scaleX(0.33);
            }
            html.pixel-ratio-4 & {
-               transform: scaleX(0.25);
+            right: -0.25px;
+            transform: scaleX(0.25);
            }
        }
       `
