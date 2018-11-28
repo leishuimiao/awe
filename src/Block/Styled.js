@@ -1,9 +1,29 @@
-import styled from 'styled-components'
-import { grey, mainPadding } from '../Theme'
+import styled, { css } from 'styled-components'
+import { grey, mainPadding, borderColor } from '../Theme'
+import retinaline, { removeRetinaline } from '../styles/retinaline'
 
-const StyledBlock = styled.div.attrs({
-  className: `${UI_NAME}-block`
-})`
+const strong = css`
+  &.${UI_NAME}-block-strong {
+    position: relative;
+    padding: ${mainPadding};
+    color: #000;
+    background: #fff;
+    ${retinaline('top', borderColor)}
+    ${retinaline('bottom', borderColor)}
+  }
+`
+
+const inset = css`
+  &.${UI_NAME}-inset {
+    margin-left: ${mainPadding};
+    margin-right: ${mainPadding};
+    border-radius: 7px;
+    ${removeRetinaline('top')}
+    ${removeRetinaline('bottom')}
+  }
+`
+
+const StyledBlock = styled.div`
   box-sizing: border-box;
   position: relative;
   z-index: 1;
@@ -19,6 +39,18 @@ const StyledBlock = styled.div.attrs({
   p:last-child {
     margin-bottom: 0;
   }
+  
+  .${UI_NAME}-block-header, .${UI_NAME}-block-footer {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  + .${UI_NAME}-block-footer {
+    margin-top: -25px;
+    margin-bottom: 35px;
+  }
+  ${strong}
+  ${inset}
 `
 
 const StyledBlockTitle = styled.div.attrs({
@@ -38,6 +70,24 @@ const StyledBlockTitle = styled.div.attrs({
     margin-top: 10px;
   }
 `
+const StyledBlockHeader = styled.div.attrs({
+  className: `${UI_NAME}-block-header`
+})`
+  padding: 0 ${mainPadding};
+  margin-top: 35px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #8f8f94;
+
+  p:first-child:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  + ${StyledBlock} {
+    margin-top: 0;
+  }
+`
 const StyledBlockFooter = styled.div.attrs({
   className: `${UI_NAME}-block-footer`
 })`
@@ -55,5 +105,6 @@ const StyledBlockFooter = styled.div.attrs({
 export {
   StyledBlock,
   StyledBlockTitle,
+  StyledBlockHeader,
   StyledBlockFooter
 }

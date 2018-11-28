@@ -4,7 +4,7 @@ import { StyledButton } from './Styled'
 import TouchFeedback from 'rmc-feedback'
 import { ThemeProvider } from 'styled-components'
 import theme from '../Theme'
-import classnames from 'classnames'
+import { getClassNameByProps } from '../utils/utils'
 
 export default class Button extends Component {
   static propsType = {
@@ -15,14 +15,6 @@ export default class Button extends Component {
     active: PropTypes.bool,
     color: PropTypes.string,
     block: PropTypes.string
-  }
-
-  getClassNameProps (props = {}) {
-    const propsObj = {}
-    for (const prop in props) {
-      propsObj[`${UI_NAME}-button-${prop}`] = props[prop]
-    }
-    return propsObj
   }
 
   render () {
@@ -36,19 +28,15 @@ export default class Button extends Component {
       <ThemeProvider theme={buttonTheme}>
         <TouchFeedback activeClassName="active-state" disabled={disabled}>
           <StyledButton
-            className={classnames({
-              [`${UI_NAME}-button`]: true,
-              ...this.getClassNameProps({
-                block,
-                round,
-                fill,
-                big,
-                small,
-                active,
-                disabled
-              }),
-              [`${className}`]: className
-            })}
+            className={getClassNameByProps('button', {
+              block,
+              round,
+              fill,
+              big,
+              small,
+              active,
+              disabled
+            }, className)}
             disabled={disabled}
             {...other}
           />

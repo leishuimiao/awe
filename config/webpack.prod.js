@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const EslintFriendlyFormatter = require('eslint-friendly-formatter');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -113,7 +114,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([buildPath], {root: process.cwd()}),
+        new CleanWebpackPlugin(getRootPath('build'), {root: process.cwd()}),
         new HtmlWebpackPlugin({
             template: getRootPath('example/index.html') //new 一个这个插件的实例，并传入相关的参数
         }),
