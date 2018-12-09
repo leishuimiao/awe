@@ -1,24 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Router from 'react-router-dom/BrowserRouter'
+import BrowserRouter from 'react-router-dom/BrowserRouter'
+import HashRouter from 'react-router-dom/HashRouter'
 import Switch from 'react-router-dom/Switch'
 import Route from 'react-router-dom/Route'
 import { CSSTransition } from 'react-transition-group'
 import { GlobalStyled, StyledViewsTransitionGroup, StyledView } from './Styled'
 
+let Router = BrowserRouter
+
 export default class App extends Component {
   static propTypes = {
     routes: PropTypes.array.isRequired,
-    timeout: PropTypes.number
+    timeout: PropTypes.number,
+    type: PropTypes.oneOf(['browser', 'hash'])
   }
   static defaultProps = {
     routes: [],
-    timeout: 400
-  }
-  componentDidMount () {
+    timeout: 400,
+    type: 'browser'
   }
   render () {
-    const { routes, timeout } = this.props
+    const { routes, timeout, type } = this.props
+
+    if (type === 'hash') Router = HashRouter
 
     return (
       <Router>
@@ -28,7 +33,7 @@ export default class App extends Component {
             timeout={timeout}
           >
             <CSSTransition
-              key={location.key}
+              key={location.pathname}
               classNames="slide"
               timeout={timeout}
             >
