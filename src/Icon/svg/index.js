@@ -1,5 +1,5 @@
 export { Error, ErrorCircle, ErrorCircleO } from './error'
-export { FailureO } from './failure-o'
+export { EmotionJoy, EmotionSad } from './emotion'
 export { Info, InfoCircle, InfoCircleO } from './info'
 export { Loading } from './loading'
 export { Question, QuestionCircle, QuestionCircleO } from './question'

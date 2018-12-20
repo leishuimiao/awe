@@ -120,8 +120,8 @@ export default class index extends Component {
             </Row>
             <Row>
               <StyledIconCol>
-                <div><Icon type="failure-o" /></div>
-                <p>failure-o</p>
+                <div><Icon type="emotion-joy" /></div>
+                <p>emotion-joy</p>
               </StyledIconCol>
               <StyledIconCol>
                 <div><Icon type="star" /></div>
@@ -130,6 +130,12 @@ export default class index extends Component {
               <StyledIconCol>
                 <div><Icon type="star-o" /></div>
                 <p>star-o</p>
+              </StyledIconCol>
+            </Row>
+            <Row>
+              <StyledIconCol width={33.33}>
+                <div><Icon type="emotion-sad" /></div>
+                <p>emotion-sad</p>
               </StyledIconCol>
             </Row>
           </Block>

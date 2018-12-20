@@ -17,7 +17,7 @@ const toastPreference = {
   info: 'info-circle-o',
   warning: 'warning-o',
   error: 'error-circle-o',
-  failure: 'failure-o',
+  failure: 'emotion-sad',
   loading: 'loading'
 }
 
