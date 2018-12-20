@@ -15,3 +15,10 @@ export const getClassNameByProps = (type, props = {}, ...rest) => {
 
   return classnames(classNameObj, ...rest)
 }
+
+export const getHumpName = (str) => {
+  str = str.substring(0, 1).toUpperCase() + str.substring(1)
+  return str.replace(/-(\w)/g, function (all, letter) {
+    return letter.toUpperCase()
+  })
+}

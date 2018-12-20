@@ -13,7 +13,9 @@ export default class index extends Component {
             <ListItem title="Block" arrow as={Link} to="/block" />
             <ListItem title="Button" arrow as={Link} to="/button" />
             <ListItem title="Grid" arrow as={Link} to="/grid" />
+            <ListItem title="Icons" arrow as={Link} to="/icons" />
             <ListItem title="List View" arrow as={Link} to="/listview" />
+            <ListItem title="Toast" arrow as={Link} to="/toast" />
           </List>
         </PageContent>
       </Page>

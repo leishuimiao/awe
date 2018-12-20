@@ -28,7 +28,7 @@ module.exports = {
     // 本地服务器
     devServer: {
         // 本地服务器所加载的页面所在的目录
-        contentBase: getRootPath('dist'),
+        contentBase: path.join(__dirname, 'dist'),
         // 页面是否显示错误信息
         overlay: true,
         // 不跳转

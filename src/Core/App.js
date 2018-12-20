@@ -13,12 +13,22 @@ export default class App extends Component {
   static propTypes = {
     routes: PropTypes.array.isRequired,
     timeout: PropTypes.number,
-    type: PropTypes.oneOf(['browser', 'hash'])
+    type: PropTypes.oneOf(['browser', 'hash']),
+    onInit: PropTypes.func,
+    onChange: PropTypes.func
   }
   static defaultProps = {
     routes: [],
     timeout: 400,
     type: 'browser'
+  }
+  componentWillMount () {
+    const { onInit } = this.props
+    onInit && onInit()
+  }
+  routerChange = (location, history, match) => {
+    const { onChange } = this.props
+    onChange && onChange(location, history, match)
   }
   render () {
     const { routes, timeout, type } = this.props
@@ -27,32 +37,35 @@ export default class App extends Component {
 
     return (
       <Router>
-        <Route render={({ location, history }) => (
-          <StyledViewsTransitionGroup
-            className={`${UI_NAME}-views ${(history.action === 'POP') ? 'route-backward' : 'route-forward'}`}
-            timeout={timeout}
-          >
-            <CSSTransition
-              key={location.pathname}
-              classNames="slide"
+        <Route render={({ location, history, match }) => {
+          this.routerChange(location, history, match)
+          return (
+            <StyledViewsTransitionGroup
+              className={`${UI_NAME}-views ${(history.action === 'POP') ? 'route-backward' : 'route-forward'}`}
               timeout={timeout}
             >
-              <StyledView className={`${UI_NAME}-view`}>
-                <Switch location={location}>
-                  {
-                    routes.map((conf, index) => {
-                      if (conf.path === '/') {
-                        conf.exact = true
-                      }
-                      return <Route key={`router_${index}`} {...conf} />
-                    })
-                  }
-                </Switch>
-              </StyledView>
-            </CSSTransition>
-            <GlobalStyled />
-          </StyledViewsTransitionGroup>
-        )} />
+              <CSSTransition
+                key={location.pathname}
+                classNames="slide"
+                timeout={timeout}
+              >
+                <StyledView className={`${UI_NAME}-view`}>
+                  <Switch location={location}>
+                    {
+                      routes.map((conf, index) => {
+                        if (conf.path === '/') {
+                          conf.exact = true
+                        }
+                        return <Route key={`router_${index}`} {...conf} />
+                      })
+                    }
+                  </Switch>
+                </StyledView>
+              </CSSTransition>
+              <GlobalStyled />
+            </StyledViewsTransitionGroup>
+          )
+        }} />
       </Router>
     )
   }
