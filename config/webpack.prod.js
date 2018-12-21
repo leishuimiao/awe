@@ -8,6 +8,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const getRootPath = (pathName) => path.resolve(__dirname, pathName ? `../${pathName}/` : '');
+const OUTPUT_NAME = 'dist'
 
 module.exports = {
     // 打包环境：开发 & 生产
@@ -17,7 +18,7 @@ module.exports = {
     // 出口：有且只能有一个
     output: {
         filename: 'static/js/[name].[hash:8].js',
-        path: getRootPath('build'),
+        path: getRootPath(OUTPUT_NAME),
         publicPath: ''
     },
     // 模块解析
@@ -114,7 +115,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(getRootPath('build'), {root: process.cwd()}),
+        new CleanWebpackPlugin(getRootPath(OUTPUT_NAME), {root: process.cwd()}),
         new HtmlWebpackPlugin({
             template: getRootPath('example/index.html') //new 一个这个插件的实例，并传入相关的参数
         }),

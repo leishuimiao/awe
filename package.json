@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "npx webpack-dev-server --host 0.0.0.0 --config=config/webpack.dev.js",
-    "prod": "npx webpack --config=config/webpack.prod.js",
-    "build": "rm -rf lib && babel src -d lib",
+    "clean": "rm -rf lib && mkdir lib",
     "lint": "eslint --ext .js src",
+    "lint:prod": "eslint --ext .js example",
     "lint:fix": "eslint --fix --ext .js src",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js"
+    "lint-staged:js": "eslint --ext .js",
+    "prebuild": "npm run lint && npm run clean",
+    "build": "babel src -d lib",
+    "preprod": "npm run lint:prod",
+    "prod": "npx webpack --config=config/webpack.prod.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.3",

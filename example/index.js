@@ -21,7 +21,7 @@ const routes = [
   { path: '/toast', component: Toast }
 ]
 
-ReactDOM.render(<App routes={routes} />, document.querySelector('#root'))
+ReactDOM.render(<App routes={routes} type="hash" />, document.querySelector('#root'))
 
 if (module.hot) {
   module.hot.accept()
