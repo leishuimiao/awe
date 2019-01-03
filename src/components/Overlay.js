@@ -5,6 +5,10 @@ import { CSSTransition } from 'react-transition-group'
 import styled from 'styled-components'
 import { Fade } from '../styles/animation'
 
+const preventDefault = e => {
+  e.preventDefault()
+}
+
 const StyledOverlay = styled(Fade)`
     position: fixed;
     left: 0;
@@ -12,7 +16,7 @@ const StyledOverlay = styled(Fade)`
     z-index: 10000;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,.4);
 `
 
 class Overlay extends Component {
@@ -24,31 +28,29 @@ class Overlay extends Component {
   static defaultProps = {
     timeout: 400
   }
-  componentDidMount () {
-    this.disableScroll()
-  }
   componentDidUpdate () {
     this.disableScroll()
   }
-  disableScroll () {
+  disableScroll (forceOpen) {
     let height, overflow
-    if (this.props.visible) {
+    if (!forceOpen && this.props.visible) {
       height = '100%'
       overflow = 'hidden'
+      window.addEventListener('touchmove', preventDefault, { passive: false })
     } else {
       height = ''
       overflow = ''
+      window.removeEventListener('touchmove', preventDefault, { passive: false })
     }
     document.body.style.height = height
     document.body.style.overflow = overflow
   }
   componentWillUnmount () {
-    this.remove()
+    this.remove(true)
   }
-  remove = () => {
+  remove = (needScroll) => {
     this.mount.unmount()
-    document.body.style.height = ''
-    document.body.style.overflow = ''
+    needScroll && this.disableScroll(true)
   }
   render () {
     const { children, visible, onCancel, overlayStyle, timeout } = this.props

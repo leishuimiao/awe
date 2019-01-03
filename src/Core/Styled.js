@@ -8,6 +8,7 @@ const GlobalStyled = createGlobalStyle`
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    touch-action: none;
   }
   body {
     font-family: PingFang SC ,PingHei, DroidSansFallback, Hiragino Sans GB, STHeiti, Roboto, Noto, Helvetica Neue, Helvetica, Arial, SimSun, sans-serif;
@@ -59,6 +60,34 @@ const GlobalStyled = createGlobalStyle`
   img {
     vertical-align: bottom;
     max-width: 100%;
+  }
+
+  input[type=date], 
+  input[type=datetime-local], 
+  input[type=email], 
+  input[type=number], 
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  input[type=time],
+  input[type=url],
+  select,
+  textarea {
+    box-sizing: border-box;
+    outline: 0;
+    display: block;
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background: none;
+    resize: none;
   }
 `
 const StyledViewsTransitionGroup = styled(TransitionGroup)`

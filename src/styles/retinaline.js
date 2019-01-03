@@ -6,28 +6,26 @@ function retinaline (position, color) {
     case 'top':
       result = css`
        &:before {
-          content: '';
+          display: block;
           position: absolute;
           left: 0;
           top: 0;
           bottom: auto;
           right: auto;
-          height: 1px;
-          width: 100%;
-          background-color: ${color};
-          display: block;
           z-index: 15;
+          width: 100%;
+          height: 1px;
+          background-color: ${color};
+          transform-origin: 50% 0%;
+          content: '';
 
           html.pixel-ratio-2 & {
-            top: -0.5px;
             transform: scaleY(0.5);
           }
           html.pixel-ratio-3 & {
-            top: -0.33px;
             transform: scaleY(0.33);
           }
           html.pixel-ratio-4 & {
-            top: -0.25px;
             transform: scaleY(0.25);
           }
       }
@@ -36,28 +34,26 @@ function retinaline (position, color) {
     case 'left':
       result = css`
         &:before {
-           content: '';
+           display: block;
            position: absolute;
            left: 0;
            top: 0;
            bottom: auto;
            right: auto;
+           z-index: 15;
            width: 1px;
            height: 100%;
            background-color: ${color};
-           display: block;
-           z-index: 15;
+           transform-origin: 0% 50%;
+           content: '';
 
            html.pixel-ratio-2 & {
-            left: -0.5px;
             transform: scaleX(0.5);
            }
            html.pixel-ratio-3 & {
-            left: -0.33px;
             transform: scaleX(0.33);
            }
            html.pixel-ratio-4 & {
-            left: -0.25px;
             transform: scaleX(0.25);
            }
        }
@@ -66,28 +62,26 @@ function retinaline (position, color) {
     case 'bottom':
       result = css`
         &:after {
-           content: '';
+           display: block;
            position: absolute;
            left: 0;
            bottom: 0;
            right: auto;
            top: auto;
-           height: 1px;
-           width: 100%;
-           background-color: ${color};
-           display: block;
            z-index: 15;
+           width: 100%;
+           height: 1px;
+           background-color: ${color};
+           transform-origin: 50% 100%;
+           content: '';
 
            html.pixel-ratio-2 & {
-            bottom: -0.5px;
             transform: scaleY(0.5);
            }
            html.pixel-ratio-3 & {
-            bottom: -0.33px;
             transform: scaleY(0.33);
            }
            html.pixel-ratio-4 & {
-            bottom: -0.25px;
             transform: scaleY(0.25);
            }
        }
@@ -96,28 +90,26 @@ function retinaline (position, color) {
     case 'right':
       result = css`
         &:after {
-           content: '';
+           display: block;
            position: absolute;
            right: 0;
            top: 0;
            left: auto;
            bottom: auto;
+           z-index: 15;
            width: 1px;
            height: 100%;
            background-color: ${color};
-           display: block;
-           z-index: 15;
+           transform-origin: 100% 50%;
+           content: '';
 
            html.pixel-ratio-2 & {
-            right: -0.5px;
             transform: scaleX(0.5);
            }
            html.pixel-ratio-3 & {
-            right: -0.33px;
             transform: scaleX(0.33);
            }
            html.pixel-ratio-4 & {
-            right: -0.25px;
             transform: scaleX(0.25);
            }
        }

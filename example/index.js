@@ -6,6 +6,7 @@ import './assets/css/index.scss'
 import IndexPage from './pages'
 import Block from './pages/Block'
 import Button from './pages/Button'
+import Dialog from './pages/Dialog'
 import Grid from './pages/Grid'
 import Icons from './pages/Icons'
 import ListView from './pages/ListView'
@@ -15,6 +16,7 @@ const routes = [
   { path: '/', component: IndexPage },
   { path: '/block', component: Block },
   { path: '/button', component: Button },
+  { path: '/dialog', component: Dialog },
   { path: '/grid', component: Grid },
   { path: '/icons', component: Icons },
   { path: '/listview', component: ListView },

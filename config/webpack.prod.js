@@ -117,7 +117,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(getRootPath(OUTPUT_NAME), {root: process.cwd()}),
         new HtmlWebpackPlugin({
-            template: getRootPath('example/index.html') //new 一个这个插件的实例，并传入相关的参数
+            template: getRootPath('example/index.html'), //new 一个这个插件的实例，并传入相关的参数
+            favicon: getRootPath('example/assets/images/favicon.ico')
         }),
         new MiniCssExtractPlugin({
             filename: 'static/css/[name].[hash:8].css',
