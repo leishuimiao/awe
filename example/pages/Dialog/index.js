@@ -34,31 +34,53 @@ export default class index extends Component {
           </Block>
           <BlockTitle>Custom Buttons</BlockTitle>
           <Block strong>
-            <Button block
-              onClick={() => dialog.create({
-                title: 'Custom Buttons',
-                text: 'Dialog with vertical buttons',
+            <Row>
+              <Col as={Button} onClick={() => dialog.confirm('这个看起来很棒吧？', {
                 buttons: [
                   {
-                    text: 'Button 1',
-                    callback () {
-                      dialog.alert('You click the Button 1')
-                    }
+                    text: '不是'
                   },
                   {
-                    text: 'Button 2',
-                    callback () {
-                      dialog.alert('You click the Button 2')
-                    }
-                  },
-                  {
-                    text: 'Button 3',
-                    callback () {
-                      dialog.alert('You click the Button 3')
-                    }
+                    text: '是的'
                   }
-                ]
-              })}>Vertical Buttons</Button>
+                ],
+                callback: () => {
+                  dialog.alert('这确实很棒！', {
+                    title: '提示',
+                    buttons: [
+                      {
+                        text: '好的'
+                      }
+                    ]
+                  })
+                }
+              })}>Double Buttons</Col>
+              <Col as={Button}
+                onClick={() => dialog.create({
+                  title: 'Custom Buttons',
+                  text: 'Dialog with Custom buttons',
+                  buttons: [
+                    {
+                      text: 'Button 1',
+                      callback () {
+                        dialog.alert('You click the Button 1')
+                      }
+                    },
+                    {
+                      text: 'Button 2',
+                      callback () {
+                        dialog.alert('You click the Button 2')
+                      }
+                    },
+                    {
+                      text: 'Button 3',
+                      callback () {
+                        dialog.alert('You click the Button 3')
+                      }
+                    }
+                  ]
+                })}>Multi Buttons</Col>
+            </Row>
           </Block>
           <BlockTitle>Preloader Dialog</BlockTitle>
           <Block strong>

@@ -46,7 +46,7 @@ export const StyledDialogButtons = styled.div.attrs({
   className: `${UI_NAME}-dialog-buttons`
 })`
   display: flex;
-  flex-direction: ${({ type }) => (type === 'alert' || type === 'create') ? 'column' : 'row'};
+  flex-direction: ${props => (props.btnAmt === 2) ? 'row' : 'column'};
 
   > span {
     position: relative;
@@ -65,12 +65,7 @@ export const StyledDialogButtons = styled.div.attrs({
     cursor: pointer;
     will-change: background;
     transition: background .2s ease;
-    ${({ type }) => (type === 'alert' || type === 'create') ? css`
-      width: 100%;
-      &:last-child {
-        border-radius: 0 0 ${borderRadius} ${borderRadius};
-      }
-    ` : css`
+    ${props => (props.btnAmt === 2) ? css`
       width: 50%;
       &:first-child {
         border-bottom-left-radius: ${borderRadius};
@@ -78,6 +73,11 @@ export const StyledDialogButtons = styled.div.attrs({
       }
       &:last-child {
         border-bottom-right-radius: ${borderRadius};
+      }
+    ` : css`
+      width: 100%;
+      &:last-child {
+        border-radius: 0 0 ${borderRadius} ${borderRadius};
       }
     `}
     ${background}
@@ -94,21 +94,28 @@ export const StyledDialogButtons = styled.div.attrs({
   }
 `
 
+export const StyledDialogInput = styled.div.attrs({
+  className: `${UI_NAME}-dialog-input`
+})`
+  position: relative;
+  padding: 0 5px;
+  ${retinaline('round', 'rgba(0, 0, 0, .4)')}
+  background: #fff;
+`
+
 export const StyledDialogInputs = styled.div.attrs({
-  className: `${UI_NAME}-dialog-buttons`
+  className: `${UI_NAME}-dialog-inputs`
 })`
   margin-top: 15px;
-
-  > input {
+  
+  input {
+    position: relative;
+    z-index: 99;
+    display: block;
+    box-sizing: border-box;
     width: 100%;
     height: 26px;
-    padding: 0 5px;
-    border: 1px solid rgba(0, 0, 0, .3);
     font-size: 14px;
-    background: #fff;
-
-    + input {
-      border-top: none;
-    }
+    background: transparent;
   }
 `

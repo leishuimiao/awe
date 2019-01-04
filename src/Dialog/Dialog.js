@@ -8,7 +8,8 @@ import {
   StyledDialogTitle,
   StyledDialogText,
   StyledDialogButtons,
-  StyledDialogInputs
+  StyledDialogInputs,
+  StyledDialogInput
 } from './Styled'
 import { Fade, ZoomIn } from '../styles/animation'
 import TouchFeedback from 'rmc-feedback'
@@ -75,7 +76,7 @@ class Dialog extends Component {
     let arg1, arg2
 
     if (inputsElement) {
-      const inputList = inputsElement.childNodes
+      const inputList = inputsElement.querySelectorAll('input')
       arg1 = inputList[0].value
       arg2 = inputList[1] && inputList[1].value
     }
@@ -88,7 +89,7 @@ class Dialog extends Component {
     const { buttons: preferenceBtns, inputs } = dialogPreference[type] || {}
     let btnList
     if (type) {
-      btnList = preferenceBtns || buttons
+      btnList = preferenceBtns ? Object.assign([], preferenceBtns, buttons) : buttons
     }
     if (type === 'preloader') {
       title = text || 'Loading...'
@@ -112,10 +113,10 @@ class Dialog extends Component {
               <StyledDialogTitle>{title}</StyledDialogTitle>
               <StyledDialogText>{text}</StyledDialogText>
               {inputs && <StyledDialogInputs ref="inputs">
-                {inputs.map((item, index) => <input key={index} type={item.type} placeholder={item.placeholder} />)}
+                {inputs.map((item, index) => <StyledDialogInput key={index}><input type={item.type} placeholder={item.placeholder} /></StyledDialogInput>)}
               </StyledDialogInputs>}
             </StyledDialogInner>
-            {btnList && <StyledDialogButtons type={type}>
+            {btnList && <StyledDialogButtons btnAmt={btnList.length}>
               {btnList.map((item, index) => <TouchFeedback key={index} activeClassName="active-state"><span onClick={() => this.handleClick(item, (index === btnList.length - 1))}>{item.text}</span></TouchFeedback>)}
             </StyledDialogButtons>}
           </StyledDialog>
