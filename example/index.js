@@ -9,6 +9,7 @@ import Button from './pages/Button'
 import Dialog from './pages/Dialog'
 import Grid from './pages/Grid'
 import Icons from './pages/Icons'
+import Inputs from './pages/Inputs'
 import ListView from './pages/ListView'
 import Toast from './pages/Toast'
 
@@ -19,6 +20,7 @@ const routes = [
   { path: '/dialog', component: Dialog },
   { path: '/grid', component: Grid },
   { path: '/icons', component: Icons },
+  { path: '/inputs', component: Inputs },
   { path: '/listview', component: ListView },
   { path: '/toast', component: Toast }
 ]

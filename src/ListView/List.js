@@ -6,15 +6,18 @@ import classnames from 'classnames'
 class List extends Component {
   static propsType = {
     mediaList: PropTypes.bool,
-    inset: PropTypes.bool
+    inset: PropTypes.bool,
+    inlineLabels: PropTypes.bool
   }
   static defaultProps = {
     mediaList: false,
-    inset: false
+    inset: false,
+    inlineLabels: false
   }
   getChildContext () {
     return {
-      mediaList: this.props.mediaList
+      mediaList: this.props.mediaList,
+      inlineLabels: this.props.inlineLabels
     }
   }
   getTypeChildren (propsChildren) {
@@ -24,7 +27,7 @@ class List extends Component {
     }
 
     React.Children.forEach(propsChildren, child => {
-      if (child.type.componentName === 'ListItem') {
+      if (['ListItem', 'ListInput'].indexOf(child.type.componentName) !== -1) {
         children.ListItem.push(child)
       } else {
         children.Other.push(child)
@@ -34,14 +37,20 @@ class List extends Component {
     return children
   }
   render () {
-    const { children, className, inset, mediaList, ...rest } = this.props
+    const { children, className, inset, mediaList, inlineLabels, ...rest } = this.props
     const { ListItem, Other } = this.getTypeChildren(children)
 
     return (
       <StyledList
-        className={classnames({ [`${UI_NAME}-list`]: true, [`${UI_NAME}-inset`]: inset, [`${UI_NAME}-media-list`]: mediaList })}
+        className={classnames({
+          [`${UI_NAME}-list`]: true,
+          [`${UI_NAME}-inset`]: inset,
+          [`${UI_NAME}-media-list`]: mediaList,
+          [`${UI_NAME}-inline-labels`]: inlineLabels
+        })}
         inset={inset}
         mediaList={mediaList}
+        inlineLabels={inlineLabels}
         {...rest}
       >
         {(ListItem.length > 0) && <ul>{ListItem}</ul>}
@@ -53,7 +62,8 @@ class List extends Component {
 
 // 向子组件传递参数
 List.childContextTypes = {
-  mediaList: PropTypes.bool
+  mediaList: PropTypes.bool,
+  inlineLabels: PropTypes.bool
 }
 
 export default List

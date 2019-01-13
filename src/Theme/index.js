@@ -9,4 +9,3 @@ export default {
 
 export const mainPadding = '15px'
 export const borderColor = '#C8C7CC'
-export const grey = '#6d6d72'

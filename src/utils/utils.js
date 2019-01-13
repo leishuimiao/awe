@@ -22,3 +22,8 @@ export const getHumpName = (str) => {
     return letter.toUpperCase()
   })
 }
+
+export const getFuncitonName = (fun) => {
+  if (typeof fun !== 'function') return fun
+  return fun.name || fun.toString().match(/function\s*([^(]*)\(/)[1]
+}

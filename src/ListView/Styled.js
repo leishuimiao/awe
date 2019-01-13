@@ -1,6 +1,13 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import retinaline, { removeRetinaline } from '../styles/retinaline'
-import { borderColor, mainPadding } from '../Theme'
+import theme, { borderColor, mainPadding } from '../Theme'
+import { StyledInputWrap, StyledClearButtonWrap } from '../Inputs/Styled'
+
+const inputInner = ({ isInput }) => {
+  return isInput && css`
+    display: block;
+  `
+}
 
 const StyledItemTitle = styled.div.attrs({
   className: `${UI_NAME}-item-title`
@@ -52,6 +59,8 @@ const StyledListItemInner = styled.div.attrs({
   `}
 
   ${retinaline('bottom', borderColor)}
+
+  ${props => inputInner(props)}
 `
 
 const StyledListItemMedia = styled.div.attrs({
@@ -76,15 +85,22 @@ const StyledListItemMedia = styled.div.attrs({
   }
 `
 
+const StyledItemLabel = styled(StyledItemTitle).attrs({
+  className: `${UI_NAME}-item-label`
+})`
+    width: 100%;
+    line-height: 1;
+    font-size: 12px;
+    flex-shrink: 0;
+
+    ${StyledListItem} & + ${StyledInputWrap} {
+      margin-top: 0;
+    }
+`
+
 const StyledList = styled.div`
   margin: 35px 0;
   font-size: 17px;
-
-  ${props => props.inset && `
-    margin-left: ${mainPadding};
-    margin-right: ${mainPadding};
-    border-radius: 7px;
-  `}
 
   ul {
     position: relative;
@@ -117,39 +133,140 @@ const StyledList = styled.div`
     color: #000;
   }
 
-  ${props => props.mediaList && `
-    ${StyledListItemInner} {
-      display: block;
-      padding-top: 10px;
+  ${StyledInputWrap} {
+    width: 100%;
+    margin-top: -8px;
+    margin-bottom: -8px;
+
+    &.has-clean-button {
+      padding-right: 27px;
+    }
+  }
+
+  ${StyledClearButtonWrap} {
+    right: -${mainPadding};
+  }
+
+  ${({ mediaList, inset, inlineLabels, ...rest }) => {
+    let styleCombine = ''
+
+    if (mediaList) {
+      styleCombine += `
+        ${StyledListItemInner} {
+          display: block;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        ${StyledItemTitle} {
+          font-weight: 600;
+        }
+
+        ${StyledListItemMedia} {
+          padding-top: 12px;
+          padding-bottom: 10px;
+          align-self: flex-start;
+        }
+      `
+    }
+
+    if (inset) {
+      styleCombine += `
+      margin-left: ${mainPadding};
+      margin-right: ${mainPadding};
+      border-radius: 7px;
+
+        li:first-child {
+          ${StyledListItem} {
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+          }
+        }
+
+        li:last-child {
+          ${StyledListItem} {
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+          }
+        }
+      `
+    }
+
+    if (inlineLabels) {
+      styleCombine += `
+        ${StyledListItemInner} {
+          display: flex;
+        }
+
+        ${StyledItemLabel} {
+          width: 35%;
+          padding-top: 3px;
+          line-height: 1.4;
+          align-self: flex-start;
+          font-size: 17px;
+
+          + ${StyledInputWrap} {
+            margin-top: -8px;
+            margin-left: 5px;
+          }
+        }
+
+        ${StyledInputWrap} {
+          &.has-clean-button {
+            padding-right: 40px;
+          }
+        }
+
+        ${StyledClearButtonWrap} {
+          right: 0;
+        }
+      `
+    }
+
+    return styleCombine
+  }}
+
+  input[type=date],
+  input[type=datetime-local],
+  input[type=email],
+  input[type=number],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  input[type=time],
+  input[type=url],
+  select {
+    width: 100%;
+    height: 44px;
+    color: #000;
+    font-size: 17px;
+  }
+
+  input[type=date],
+  input[type=datetime-local] {
+    line-height: 44px;
+  }
+
+  input[type=datetime-local] {
+    max-width: 50vw;
+  }
+
+  textarea {
+    width: 100%;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    line-height: 1.4;
+    resize: none;
+    color: #000;
+    font-size: 17px;
+    resize: none;
+
+    &.resizable {
+      height: 44px;
       padding-bottom: 10px;
     }
-
-    ${StyledItemTitle} {
-      font-weight: 600;
-    }
-
-    ${StyledListItemMedia} {
-      padding-top: 12px;
-      padding-bottom: 10px;
-      align-self: flex-start;
-    }
-  `}
-
-  ${props => props.inset && `
-    li:first-child {
-      ${StyledListItem} {
-        border-top-left-radius: 7px;
-        border-top-right-radius: 7px;
-      }
-    }
-
-    li:last-child {
-      ${StyledListItem} {
-        border-bottom-left-radius: 7px;
-        border-bottom-right-radius: 7px;
-      }
-    }
-  `}
+  }
 `
 
 const StyledItemTitleRow = styled.div.attrs({
@@ -177,11 +294,11 @@ const StyledItemText = styled.div.attrs({
   position: relative;
   display: -webkit-box;
   overflow: hidden;
-  text-overflow: hidden;
+  text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 15px;
-  color: #8e8e93;
+  color: ${theme.gray};
   line-height: 21px;
   max-height: 40px;
 `
@@ -194,7 +311,7 @@ const StyledItemAfter = styled.div.attrs({
   flex-shrink: 0;
   white-space: nowrap;
   padding-left: 5px;
-  color: #8e8e93;
+  color: ${theme.gray};
 `
 
 const StyledItemBadge = styled.span.attrs({
@@ -211,7 +328,7 @@ const StyledItemBadge = styled.span.attrs({
   border-radius: 20px;
   color: #fff;
   font-size: 12px;
-  background: #8e8e93;
+  background: ${theme.gray};
 `
 
 const StyledItemHeader = styled.div.attrs({
@@ -231,7 +348,7 @@ const StyledItemFooter = styled.div.attrs({
   font-weight: 400;
   font-size: 12px;
   line-height: 1.2;
-  color: #8e8e93;
+  color: ${theme.gray};
   white-space: normal;
 `
 const StyledDivider = styled.div.attrs({
@@ -243,7 +360,7 @@ const StyledDivider = styled.div.attrs({
   margin-top: -1px;
   padding: 6px ${mainPadding};
   background: #f7f7f7;
-  color: #8e8e93;
+  color: ${theme.gray};
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -280,6 +397,7 @@ const StyledGroupTitle = styled.li.attrs({
   font-weight: bold;
   background: #f7f7f7;
 `
+
 export {
   StyledList,
   StyledListItem,
@@ -295,5 +413,6 @@ export {
   StyledItemBadge,
   StyledDivider,
   StyledListGroup,
-  StyledGroupTitle
+  StyledGroupTitle,
+  StyledItemLabel
 }

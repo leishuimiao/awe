@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { grey, mainPadding, borderColor } from '../Theme'
+import theme, { mainPadding, borderColor } from '../Theme'
 import retinaline, { removeRetinaline } from '../styles/retinaline'
 
 const strong = css`
@@ -29,7 +29,7 @@ const StyledBlock = styled.div`
   z-index: 1;
   padding: 0 ${mainPadding};
   margin: 35px 0;
-  color: ${grey};
+  color: ${theme.grey};
   text-align: justify;
 
   p:first-child {
@@ -64,7 +64,7 @@ const StyledBlockTitle = styled.div.attrs({
   line-height: 17px;
   font-size: 14px;
   text-transform: uppercase;
-  color: ${grey};
+  color: ${theme.grey};
 
   + ${StyledBlock}, + .${UI_NAME}-list {
     margin-top: 10px;
