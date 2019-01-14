@@ -32,6 +32,7 @@ export const StyledInputWrap = styled.div.attrs({
 export const StyledClearButtonWrap = styled.div.attrs({
   className: `${UI_NAME}-input-clearn-button-wrap`
 })`
+  display: ${props => props.visible ? 'block' : 'none'};
   position: absolute;
   top: 0;
   right: 0;

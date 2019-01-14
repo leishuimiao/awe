@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import Icon from '../Icon'
 import PropTypes from 'prop-types'
 import TouchFeedback from 'rmc-feedback'
-import { CSSTransition } from 'react-transition-group'
 import {
   StyledInputWrap,
   StyledClearButtonWrap,
   StyledClearButton,
   StyledInputInfo
 } from './Styled'
-import { Fade } from '../styles/animation'
 
 const hasClearButtonTypes = [
   'text',
@@ -20,9 +18,6 @@ const hasClearButtonTypes = [
   'search',
   'tel'
 ]
-const TIME_OUT = 200
-let now = Date.now()
-let clearButtonSTO
 
 export default class Input extends Component {
   state = {
@@ -54,28 +49,9 @@ export default class Input extends Component {
       // hidden
       visible = false
     }
-    this.setState({ value })
-    this.debounceClearnButton(visible, 100)
+    this.setState({ value, visible })
     onChange && onChange(e)
     validate && this.inputValidation(dom)
-  }
-  debounceClearnButton = (visible, delay) => {
-    const currentTime = Date.now()
-    if (currentTime - now >= delay) {
-      this.setState({ visible })
-    } else {
-      if (!visible) {
-        clearButtonSTO = setTimeout(() => {
-          this.setState({ visible })
-        }, 50)
-      } else {
-        if (clearButtonSTO) {
-          clearTimeout(clearButtonSTO)
-          clearButtonSTO = null
-        }
-      }
-    }
-    now = currentTime
   }
   inputValidation = (dom) => {
     const { validate, errMsg, onValidateChange } = this.props
@@ -131,19 +107,13 @@ export default class Input extends Component {
         <input {...inputProps} ref="input" />
         {
           clearButton &&
-          <CSSTransition
-            in={visible}
-            timeout={TIME_OUT}
-            classNames={Fade.className}
-          >
-            <StyledClearButtonWrap as={Fade}>
-              <TouchFeedback activeClassName="active-state">
-                <StyledClearButton onClick={this.clearInputValue}>
-                  <Icon type="error-circle" color="#666" size={16} />
-                </StyledClearButton>
-              </TouchFeedback>
-            </StyledClearButtonWrap>
-          </CSSTransition>
+          <StyledClearButtonWrap visible={visible}>
+            <TouchFeedback activeClassName="active-state">
+              <StyledClearButton onClick={this.clearInputValue}>
+                <Icon type="error-circle" color="#666" size={16} />
+              </StyledClearButton>
+            </TouchFeedback>
+          </StyledClearButtonWrap>
         }
         {info && <StyledInputInfo isInvalid={isInvalid}>{isInvalid ? invalidText : info}</StyledInputInfo>}
       </StyledInputWrap>

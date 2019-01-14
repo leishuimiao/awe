@@ -1,7 +1,2 @@
-import Button from './Button'
-import Segmented from './Segmented'
-
-export default Button
-export {
-  Segmented
-}
+export { default } from './Button'
+export { default as Segmented } from './Segmented'

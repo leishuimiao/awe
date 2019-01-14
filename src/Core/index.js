@@ -1,15 +1,6 @@
-import device from './device'
-import App from './App'
-import Page from './Page'
-import PageContent from './PageContent'
-import Link from 'react-router-dom/Link'
-import withRouter from 'react-router-dom/withRouter'
-
-export {
-  device,
-  App,
-  Page,
-  PageContent,
-  Link,
-  withRouter
-}
+export { default as device } from './device'
+export { default as App } from './App'
+export { default as Page } from './Page'
+export { default as PageContent } from './PageContent'
+export { default as Link } from 'react-router-dom/Link'
+export { default as withRouter } from 'react-router-dom/withRouter'
