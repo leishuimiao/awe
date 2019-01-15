@@ -27,3 +27,11 @@ export const getFuncitonName = (fun) => {
   if (typeof fun !== 'function') return fun
   return fun.name || fun.toString().match(/function\s*([^(]*)\(/)[1]
 }
+
+export const getUnitObj = (str) => {
+  const matchArr = str.match(/(^\d*\.?\d*)(.*$)/)
+  return {
+    number: matchArr[1],
+    unit: matchArr[2]
+  }
+}

@@ -1,6 +1,17 @@
 import { css } from 'styled-components'
+import { getUnitObj } from '../utils/utils'
 
-function retinaline (position, color) {
+const borderRadiusStyle = (borderRadius, ratio) => {
+  if (!borderRadius) return ''
+  const borderRadiusObj = getUnitObj(borderRadius)
+  return css`
+    border-radius: ${!ratio
+    ? borderRadius
+    : (borderRadiusObj.number * ratio + borderRadiusObj.unit)};
+  `
+}
+
+function retinaline (position, color, borderRadius) {
   let result = ''
   switch (position) {
     case 'top':
@@ -119,30 +130,35 @@ function retinaline (position, color) {
       result = css`
         &:after {
           position: absolute;
-          left: 0;
-          top: 0;
-          width: calc(100% - 1px);
-          height: calc(100% - 1px);
+          left: -1px;
+          top: -1px;
+          width: calc(100% + 2px);
+          height: calc(100% + 2px);
+          box-sizing: border-box;
           border: 1px solid ${color};
+          ${borderRadiusStyle(borderRadius)}
           transform-origin: 0 0;
           content: '';
           pointer-events: none;
 
           html.pixel-ratio-2 & {
-              width: calc(100% * 2 - 1px);
-              height: calc(100% * 2 - 1px);
+              width: calc(100% * 2 + 2px);
+              height: calc(100% * 2 + 2px);
+              ${borderRadiusStyle(borderRadius, 2)}
               transform: scale(.5, .5);
           }
 
           html.pixel-ratio-3 & {
-              width: calc(100% * 3 - 1px);
-              height: calc(100% * 3 - 1px);
+              width: calc(100% * 3 + 2px);
+              height: calc(100% * 3 + 2px);
+              ${borderRadiusStyle(borderRadius, 3)}
               transform: scale(.3333, .3333);
           }
 
           html.pixel-ratio-4 & {
-              width: calc(100% * 4 - 1px);
-              height: calc(100% * 4 - 1px);
+              width: calc(100% * 4 + 2px);
+              height: calc(100% * 4 + 2px);
+              ${borderRadiusStyle(borderRadius, 4)}
               transform: scale(.25, .25);
           }
         }

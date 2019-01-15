@@ -1,12 +1,5 @@
 import { css } from 'styled-components'
-
-function getUnitObj (str) {
-  const matchArr = str.match(/(^\d*\.?\d*)(.*$)/)
-  return {
-    number: matchArr[1],
-    unit: matchArr[2]
-  }
-}
+import { getUnitObj } from '../utils/utils'
 
 export default function drop (position, size, color) {
   let result = ''

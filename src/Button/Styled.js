@@ -1,9 +1,12 @@
 import styled, { css } from 'styled-components'
 import colorAlpha from 'color-alpha'
 import theme from '../Theme'
+import retinaline from '../styles/retinaline'
 
-const DEFAULT_RADIUS = '5px'
-const ROUND_RADIUS = '29px'
+const DEFAULT_RADIUS_VALUE = 5
+const DEFAULT_RADIUS = DEFAULT_RADIUS_VALUE + 'px'
+const ROUND_RADIUS_VALUE = 29
+const ROUND_RADIUS = ROUND_RADIUS_VALUE + 'px'
 const DEFAULT_OPACITY = '.7'
 
 const block = css`
@@ -26,6 +29,18 @@ const small = css`
     font-size: 12px;
   }
 `
+const thin = css`
+  &.${UI_NAME}-button-thin {
+    padding: 0;
+    overflow: visible;
+    border-color: transparent;
+    ${props => retinaline('round', props.theme.main, props.round ? ROUND_RADIUS : DEFAULT_RADIUS)}
+
+    &::after {
+      transition: all .2s ease;
+    }
+  }
+`
 const round = css`
   &.${UI_NAME}-button-round {
     border-radius: ${ROUND_RADIUS};
@@ -44,7 +59,11 @@ const fill = css`
 const active = css`
   &.${UI_NAME}-button-active {
     color: #fff;
-    background: ${props => props.theme.main};
+    background: ${props => props.thin ? 'transparent' : props.theme.main};
+
+    &::after {
+      background: ${props => props.theme.main};
+    }
   }
 `
 const disabled = css`
@@ -80,16 +99,36 @@ const StyledButton = styled.button`
   transition: all .2s ease;
 
   &.active-state {
-    background: ${props => colorAlpha(props.theme.main, 0.15)};
+    background: ${props => props.thin ? 'none' : colorAlpha(props.theme.main, 0.15)};
+    ${props => props.thin && `
+      &::after {
+        background: ${colorAlpha(props.theme.main, 0.15)};
+      }
+    `}
   }
 
   ${block}
   ${big}
   ${small}
+  ${thin}
   ${round}
   ${fill}
   ${active}
   ${disabled}
+`
+
+const StyledThinWrap = styled.span`
+  position: relative;
+  z-index: 9;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
 `
 
 const StyledSegmented = styled.div.attrs({
@@ -125,10 +164,123 @@ const StyledSegmented = styled.div.attrs({
         border-bottom-right-radius: ${ROUND_RADIUS};
       }
     }
+
+    &.${UI_NAME}-button-thin {
+      border: none;
+
+      &::after {
+        border-radius: 0;
+        border-left-width: 0;
+
+        html.pixel-ratio-2 & {
+          border-radius: 0.1px;
+        }
+
+        html.pixel-ratio-3 & {
+          border-radius: 0.1px;
+        }
+
+        html.pixel-ratio-4 & {
+          border-radius: 0.1px;
+        }
+      }
+
+      &:first-child {
+        &::after {
+          border-left-width: 1px;
+          border-top-left-radius: ${DEFAULT_RADIUS};
+          border-bottom-left-radius: ${DEFAULT_RADIUS};
+
+          html.pixel-ratio-2 & {
+            border-top-left-radius: ${DEFAULT_RADIUS_VALUE * 2}px;
+            border-bottom-left-radius: ${DEFAULT_RADIUS_VALUE * 2}px;
+          }
+
+          html.pixel-ratio-3 & {
+            border-top-left-radius: ${DEFAULT_RADIUS_VALUE * 3}px;
+            border-bottom-left-radius: ${DEFAULT_RADIUS_VALUE * 3}px;
+          }
+
+          html.pixel-ratio-4 & {
+            border-top-left-radius: ${DEFAULT_RADIUS_VALUE * 4}px;
+            border-bottom-left-radius: ${DEFAULT_RADIUS_VALUE * 4}px;
+          }
+        }
+      }
+
+      &:last-child {
+        &::after {
+          border-top-right-radius: ${DEFAULT_RADIUS};
+          border-bottom-right-radius: ${DEFAULT_RADIUS};
+
+          html.pixel-ratio-2 & {
+            border-top-right-radius: ${DEFAULT_RADIUS_VALUE * 2}px;
+            border-bottom-right-radius: ${DEFAULT_RADIUS_VALUE * 2}px;
+          }
+
+          html.pixel-ratio-3 & {
+            border-top-right-radius: ${DEFAULT_RADIUS_VALUE * 3}px;
+            border-bottom-right-radius: ${DEFAULT_RADIUS_VALUE * 3}px;
+          }
+
+          html.pixel-ratio-4 & {
+            border-top-right-radius: ${DEFAULT_RADIUS_VALUE * 4}px;
+            border-bottom-right-radius: ${DEFAULT_RADIUS_VALUE * 4}px;
+          }
+        }
+      }
+
+      &.${UI_NAME}-button-round {
+        &:first-child {
+          &::after {
+            border-top-left-radius: ${ROUND_RADIUS};
+            border-bottom-left-radius: ${ROUND_RADIUS};
+
+            html.pixel-ratio-2 & {
+              border-top-left-radius: ${ROUND_RADIUS_VALUE * 2}px;
+              border-bottom-left-radius: ${ROUND_RADIUS_VALUE * 2}px;
+            }
+
+            html.pixel-ratio-3 & {
+              border-top-left-radius: ${ROUND_RADIUS_VALUE * 3}px;
+              border-bottom-left-radius: ${ROUND_RADIUS_VALUE * 3}px;
+            }
+
+            html.pixel-ratio-4 & {
+              border-top-left-radius: ${ROUND_RADIUS_VALUE * 4}px;
+              border-bottom-left-radius: ${ROUND_RADIUS_VALUE * 4}px;
+            }
+          }
+        }
+
+        &:last-child {
+          &::after {
+            border-top-right-radius: ${ROUND_RADIUS};
+            border-bottom-right-radius: ${ROUND_RADIUS};
+
+            html.pixel-ratio-2 & {
+              border-top-right-radius: ${ROUND_RADIUS_VALUE * 2}px;
+              border-bottom-right-radius: ${ROUND_RADIUS_VALUE * 2}px;
+            }
+
+            html.pixel-ratio-3 & {
+              border-top-right-radius: ${ROUND_RADIUS_VALUE * 3}px;
+              border-bottom-right-radius: ${ROUND_RADIUS_VALUE * 3}px;
+            }
+
+            html.pixel-ratio-4 & {
+              border-top-right-radius: ${ROUND_RADIUS_VALUE * 4}px;
+              border-bottom-right-radius: ${ROUND_RADIUS_VALUE * 4}px;
+            }
+          }
+        }
+      }
+    }
   }
 `
 
 export {
   StyledButton,
+  StyledThinWrap,
   StyledSegmented
 }

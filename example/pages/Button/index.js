@@ -9,10 +9,12 @@ export default class index extends Component {
     btnActive1: 2,
     btnActive2: 1,
     btnActive3: 2,
-    btnActive4: 1
+    btnActive4: 1,
+    btnActive5: 0,
+    btnActive6: 1
   }
   render () {
-    const { btnActive1, btnActive2, btnActive3, btnActive4 } = this.state
+    const { btnActive1, btnActive2, btnActive3, btnActive4, btnActive5, btnActive6 } = this.state
     return (
       <Page title="Button">
         <PageContent>
@@ -136,6 +138,36 @@ export default class index extends Component {
             <Segmented as="p">
               <Button round active={btnActive4 === 0} onClick={() => this.setState({ btnActive4: 0 })}>按钮</Button>
               <Button round active={btnActive4 === 1} onClick={() => this.setState({ btnActive4: 1 })}>活动按钮</Button>
+            </Segmented>
+          </Block>
+          <BlockTitle>细边框按钮(Border Thin Buttons)</BlockTitle>
+          <Block>
+            <Row as="p">
+              <Col as={Button} thin color="blue">Blue</Col>
+              <Col as={Button} thin color="pink">Pink</Col>
+              <Col as={Button} thin color="orange">Orange</Col>
+            </Row>
+            <Row as="p">
+              <Col as={Button} thin color="green">Green</Col>
+              <Col as={Button} thin color="yellow">Yellow</Col>
+              <Col as={Button} thin color="red">Red</Col>
+            </Row>
+            <Row as="p">
+              <Col as={Button} thin color="gray">Gray</Col>
+              <Col as={Button} thin color="black">Black</Col>
+              <Col as={Button} thin round>Blue Round</Col>
+            </Row>
+            <Row>
+              <Col as={Button} thin block>Button</Col>
+            </Row>
+            <Segmented as="p">
+              <Button thin color="red" active={btnActive5 === 0} onClick={() => this.setState({ btnActive5: 0 })}>活动按钮</Button>
+              <Button thin color="red" active={btnActive5 === 1} onClick={() => this.setState({ btnActive5: 1 })}>Button</Button>
+              <Button thin color="red" active={btnActive5 === 2} onClick={() => this.setState({ btnActive5: 2 })}>按钮</Button>
+            </Segmented>
+            <Segmented as="p">
+              <Button thin round color="blue" active={btnActive6 === 0} onClick={() => this.setState({ btnActive6: 0 })}>按钮</Button>
+              <Button thin round color="blue" active={btnActive6 === 1} onClick={() => this.setState({ btnActive6: 1 })}>活动按钮</Button>
             </Segmented>
           </Block>
         </PageContent>
