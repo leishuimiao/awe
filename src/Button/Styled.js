@@ -56,6 +56,12 @@ const fill = css`
     }
   }
 `
+const icon = css`
+  .${UI_NAME}-icon {
+    margin-right: 8px;
+    margin-top: -2px;
+  }
+`
 const active = css`
   &.${UI_NAME}-button-active {
     color: #fff;
@@ -113,6 +119,7 @@ const StyledButton = styled.button`
   ${thin}
   ${round}
   ${fill}
+  ${icon}
   ${active}
   ${disabled}
 `

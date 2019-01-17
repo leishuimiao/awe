@@ -3,6 +3,7 @@ import { Page, PageContent } from '@src/Core'
 import { Block, BlockTitle } from '@src/Block'
 import { Row, Col } from '@src/Grid'
 import Button, { Segmented } from '@src/Button'
+import Icon from '@src/Icon'
 
 export default class index extends Component {
   state = {
@@ -169,6 +170,22 @@ export default class index extends Component {
               <Button thin round color="blue" active={btnActive6 === 0} onClick={() => this.setState({ btnActive6: 0 })}>按钮</Button>
               <Button thin round color="blue" active={btnActive6 === 1} onClick={() => this.setState({ btnActive6: 1 })}>活动按钮</Button>
             </Segmented>
+          </Block>
+          <BlockTitle>带图标按钮(Button With Icon)</BlockTitle>
+          <Block>
+            <Row as="p">
+              <Col as={Button} small fill block color="orange"><Icon type="warning-o" size={12} color="#fff" />Warning Button</Col>
+            </Row>
+            <Row as="p">
+              <Col as={Button} fill color="green"><Icon type="success-circle-o" size={14} color="#fff" />Success Button</Col>
+              <Col as={Button} color="red"><Icon type="error-circle-o" size={14} color="red" />Error Button</Col>
+            </Row>
+            <Row as="p">
+              <Col as={Button} big fill block loading>加载按钮</Col>
+            </Row>
+            <Row as="p">
+              <Col as={Button} big block loading>Loading Button</Col>
+            </Row>
           </Block>
         </PageContent>
       </Page>

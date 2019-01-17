@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { StyledButton, StyledThinWrap } from './Styled'
 import TouchFeedback from 'rmc-feedback'
 import { ThemeProvider } from 'styled-components'
 import theme from '../Theme'
 import { getClassNameByProps } from '../utils/utils'
+import Icon from '../Icon'
 
 export default class Button extends Component {
   static propsType = {
@@ -14,21 +15,27 @@ export default class Button extends Component {
     small: PropTypes.bool,
     thine: PropTypes.bool,
     active: PropTypes.bool,
+    loading: PropTypes.bool,
     color: PropTypes.string,
     block: PropTypes.string
   }
 
   render () {
-    const { disabled, color, fill, block, className, big, small, thin: propsThin, round, active, children, ...other } = this.props
+    const { disabled, color, fill, block, className, big, small, thin: propsThin, round, active, loading, children: propsChildren, ...other } = this.props
     const thin = !fill ? propsThin : false
     const { main, ...rest } = theme
     const buttonTheme = {
       main: theme[color] || main,
       ...rest
     }
+    const size = big ? 17 : (small ? 12 : 14)
+    let children = propsChildren
+    if (loading) {
+      children = <Fragment><Icon type="loading" size={size} color={fill ? '#fff' : undefined} />{children}</Fragment>
+    }
     return (
       <ThemeProvider theme={buttonTheme}>
-        <TouchFeedback activeClassName="active-state" disabled={disabled}>
+        <TouchFeedback activeClassName="active-state" disabled={disabled || loading}>
           <StyledButton
             className={getClassNameByProps('button', {
               block,
@@ -38,11 +45,12 @@ export default class Button extends Component {
               small,
               thin,
               active,
+              loading,
               disabled
             }, className)}
             round={round}
             thin={thin}
-            disabled={disabled}
+            disabled={disabled || loading}
             {...other}
           >{thin ? <StyledThinWrap>{children}</StyledThinWrap> : children}</StyledButton>
         </TouchFeedback>
