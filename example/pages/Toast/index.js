@@ -86,9 +86,9 @@ export default class index extends Component {
               <Button
                 block
                 onClick={() => {
-                  const loadingToast = toast.loading('Loading text...', { duration: 0 })
+                  const loadingToast = toast.loading('Loading text...')
                   setTimeout(() => {
-                    loadingToast.destroy()
+                    loadingToast.close()
                   }, 5000)
                 }}
               >Toast for loading</Button>

@@ -31,18 +31,19 @@ class Toast extends Component {
     closeButton: false,
     iconProps: null
   }
-  create = (type, text, { visible, duration = 2000, callback, closeButton = false, ...rest }) => {
+  create = (type, text, { visible, duration: propsDuration, callback, closeButton = false, ...rest }) => {
+    const duration = (propsDuration !== undefined) ? propsDuration : ((type === 'loading') ? 0 : 2000)
     this.setState({ visible: true, text, type, closeButton, callback, ...rest })
 
     if (typeof duration !== 'number') throw new Error('duration must be a Number')
 
     if (duration !== 0 && !closeButton) {
       setTimeout(() => {
-        this.destroy(callback)
+        this.close(callback)
       }, duration)
     }
   }
-  destroy = (callback) => {
+  close = (callback) => {
     this.setState({ visible: false }, () => {
       setTimeout(() => {
         callback && callback.call(this)
@@ -56,7 +57,7 @@ class Toast extends Component {
       position = 'bottom'
       text = <Fragment>
         {text && <div>{text}</div>}
-        <div onClick={() => this.destroy(callback)}>{closeButtonText}</div>
+        <div onClick={() => this.close(callback)}>{closeButtonText}</div>
       </Fragment>
     }
 

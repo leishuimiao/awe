@@ -61,7 +61,7 @@ class Dialog extends Component {
     const { visible, callback, ...rest } = optSource
     this.setState({ visible: true, text, type, callback, ...rest })
   }
-  destroy = (callback, arg1, arg2) => {
+  close = (callback, arg1, arg2) => {
     this.setState({ visible: false }, () => {
       setTimeout(() => {
         (typeof callback === 'function') && callback.call(this, arg1, arg2)
@@ -81,7 +81,7 @@ class Dialog extends Component {
       arg2 = inputList[1] && inputList[1].value
     }
 
-    this.destroy(clickCallback, arg1, arg2)
+    this.close(clickCallback, arg1, arg2)
   }
   render () {
     let { visible, text, title = 'Awesome UI', type, buttons, callback, ...rest } = this.state

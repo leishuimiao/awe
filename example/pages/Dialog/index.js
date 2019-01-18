@@ -88,13 +88,13 @@ export default class index extends Component {
               <Col as={Button} onClick={() => {
                 const preloader = dialog.preloader()
                 setTimeout(() => {
-                  preloader.destroy()
+                  preloader.close()
                 }, 5000)
               }}>Preloader</Col>
               <Col as={Button} onClick={() => {
                 const preloader = dialog.preloader('My Title')
                 setTimeout(() => {
-                  preloader.destroy()
+                  preloader.close()
                 }, 5000)
               }}>Custom Title</Col>
             </Row>
