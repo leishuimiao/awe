@@ -13,16 +13,15 @@ export default class Button extends Component {
     round: PropTypes.bool,
     big: PropTypes.bool,
     small: PropTypes.bool,
-    thine: PropTypes.bool,
+    thin: PropTypes.bool,
     active: PropTypes.bool,
     loading: PropTypes.bool,
     color: PropTypes.string,
     block: PropTypes.string
   }
-
   render () {
     const { disabled, color, fill, block, className, big, small, thin: propsThin, round, active, loading, children: propsChildren, ...other } = this.props
-    const thin = !fill ? propsThin : false
+    const thin = !fill ? propsThin : undefined
     const { main, ...rest } = theme
     const buttonTheme = {
       main: theme[color] || main,
