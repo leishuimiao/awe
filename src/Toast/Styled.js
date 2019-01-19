@@ -9,11 +9,13 @@ const top = css`
 `
 
 const center = css`
+  display: table;
   top: 50%;
   left: 50%;
-  border-radius: 8px;
+  max-width: 270px;
   padding: ${mainPadding};
   transform: translate(-50%, -50%);
+  border-radius: 8px;
 `
 
 const bottom = css`
@@ -33,6 +35,7 @@ export const StyledToast = styled.div.attrs({
 })`
   position: absolute;
   z-index: 100000;
+  display: block;
   box-sizing: border-box;
   padding: 12px ${mainPadding};
   color: #fff;
