@@ -49,13 +49,12 @@ class Overlay extends Component {
     this.remove(true)
   }
   remove = (needScroll) => {
-    this.mount.unmount()
     needScroll && this.disableScroll(true)
   }
   render () {
     const { children, visible, onCancel, overlayStyle, timeout } = this.props
     return (
-      <Mount ref={mount => (this.mount = mount)}>
+      <Mount>
         <Fragment>
           <CSSTransition
             in={visible}

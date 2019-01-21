@@ -1,29 +1,22 @@
 import { Component } from 'react'
-import ReactDOM from 'react-dom'
+import { createPortal } from 'react-dom'
 
 class Mounter extends Component {
-  componentDidMount () {
-    this.mounter = document.createElement('div')
-    document.body.appendChild(this.mounter)
+  constructor () {
+    super(...arguments)
 
-    this.renderComponent()
-  }
-  componentDidUpdate () {
-    this.renderComponent(this.mounter)
-  }
-  componentWillUnmount () {
-    // 在组件卸载的时候，保证弹层也被卸载掉
-    this.unmount()
+    const doc = window.document
+    this.node = doc.createElement('div')
+    doc.body.appendChild(this.node)
   }
   unmount () {
-    ReactDOM.unmountComponentAtNode(this.mounter)
-    document.body.removeChild(this.mounter)
+    window.document.body.removeChild(this.node)
   }
-  renderComponent () {
-    ReactDOM.render(this.props.children, this.mounter)
+  componentWillUnmount () {
+    this.unmount()
   }
   render () {
-    return null
+    return createPortal(this.props.children, this.node)
   }
 }
 

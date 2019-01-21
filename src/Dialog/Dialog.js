@@ -1,7 +1,5 @@
-import React, { Component, isValidElement } from 'react'
-import ReactDOM from 'react-dom'
-import Overlay from '../components/Overlay'
-import { CSSTransition } from 'react-transition-group'
+import React, { isValidElement } from 'react'
+import { insert, remove } from '../components/Modal'
 import {
   StyledDialog,
   StyledDialogInner,
@@ -15,7 +13,6 @@ import { Fade, ZoomIn } from '../styles/animation'
 import TouchFeedback from 'rmc-feedback'
 import Icon from '../Icon'
 
-const TIME_OUT = 400
 const dialogPreference = {
   alert: {
     buttons: [{ text: 'OK' }]
@@ -43,36 +40,58 @@ const dialogPreference = {
   }
 }
 
-class Dialog extends Component {
-  state = {
-    visible: false,
-    text: '',
-    type: null
+let id = 0
+
+function Dialog (type, textOptional, optional = {}) {
+  // 判断第一个参数是否是字符串或者React元素，
+  // 如果不是，第一个参数则为选项参数
+  let text = textOptional
+  let optSource = optional
+  if (textOptional && (typeof textOptional !== 'string') && !isValidElement(textOptional)) {
+    optSource = textOptional
+    text = textOptional.text
   }
-  create = (type, textOptional, optional = {}) => {
-    // 判断第一个参数是否是字符串或者React元素，
-    // 如果不是，第一个参数则为选项参数
-    let text = textOptional
-    let optSource = optional
-    if (textOptional && (typeof textOptional !== 'string') && !isValidElement(textOptional)) {
-      optSource = textOptional
-      text = textOptional.text
-    }
-    const { visible, callback, ...rest } = optSource
-    this.setState({ visible: true, text, type, callback, ...rest })
+  let { title = 'Awesome UI', buttons, callback, ...rest } = optSource
+
+  const { buttons: preferenceBtns, inputs } = dialogPreference[type] || {}
+  let btnList
+  if (type) {
+    btnList = preferenceBtns ? Object.assign([], preferenceBtns, buttons) : buttons
   }
-  close = (callback, arg1, arg2) => {
-    this.setState({ visible: false }, () => {
-      setTimeout(() => {
-        (typeof callback === 'function') && callback.call(this, arg1, arg2)
-        this.overlay.remove()
-      }, TIME_OUT)
+  if (type === 'preloader') {
+    title = text || 'Loading...'
+    text = <Icon type="loading" size={32} />
+    btnList = null
+  }
+
+  const content = (animationStyle) => {
+    return (
+      <StyledDialog as={animationStyle} center {...rest}>
+        <StyledDialogInner hasButton={btnList}>
+          <StyledDialogTitle>{title}</StyledDialogTitle>
+          <StyledDialogText>{text}</StyledDialogText>
+          {inputs && <StyledDialogInputs id={`input_${id}`}>
+            {inputs.map((item, index) => <StyledDialogInput key={index}><input type={item.type} placeholder={item.placeholder} /></StyledDialogInput>)}
+          </StyledDialogInputs>}
+        </StyledDialogInner>
+        {btnList && <StyledDialogButtons btnAmt={btnList.length}>
+          {btnList.map((item, index) => <TouchFeedback key={index} activeClassName="active-state"><span onClick={() => handleClick(item, (index === btnList.length - 1))}>{item.text}</span></TouchFeedback>)}
+        </StyledDialogButtons>}
+      </StyledDialog>
+    )
+  }
+
+  const close = (cb, ...rest) => {
+    const closeCb = cb && cb.bind(null, ...rest)
+    remove(closeCb, {
+      content: content(Fade),
+      transitionClassName: Fade.className
     })
   }
-  handleClick (item, isPrimary) {
-    const { callback } = this.state
-    const clickCallback = item.callback || (isPrimary && callback)
-    const inputsElement = this.refs.inputs
+
+  const handleClick = (item, isPrimary) => {
+    const clickCallback = (item.callback || (isPrimary && callback)) || undefined
+    const inputsElement = document.getElementById(`input_${id}`)
     let arg1, arg2
 
     if (inputsElement) {
@@ -81,61 +100,28 @@ class Dialog extends Component {
       arg2 = inputList[1] && inputList[1].value
     }
 
-    this.close(clickCallback, arg1, arg2)
+    close(clickCallback, arg1, arg2)
   }
-  render () {
-    let { visible, text, title = 'Awesome UI', type, buttons, callback, ...rest } = this.state
-    const animationStyle = visible ? ZoomIn : Fade
-    const { buttons: preferenceBtns, inputs } = dialogPreference[type] || {}
-    let btnList
-    if (type) {
-      btnList = preferenceBtns ? Object.assign([], preferenceBtns, buttons) : buttons
-    }
-    if (type === 'preloader') {
-      title = text || 'Loading...'
-      text = <Icon type="loading" size={32} />
-      btnList = null
-    }
 
-    return (
-      <Overlay
-        timeout={TIME_OUT}
-        visible={visible}
-        ref={overlay => (this.overlay = overlay)}
-      >
-        <CSSTransition
-          in={visible}
-          timeout={TIME_OUT}
-          classNames={animationStyle.className}
-        >
-          <StyledDialog as={animationStyle} center {...rest}>
-            <StyledDialogInner hasButton={btnList}>
-              <StyledDialogTitle>{title}</StyledDialogTitle>
-              <StyledDialogText>{text}</StyledDialogText>
-              {inputs && <StyledDialogInputs ref="inputs">
-                {inputs.map((item, index) => <StyledDialogInput key={index}><input type={item.type} placeholder={item.placeholder} /></StyledDialogInput>)}
-              </StyledDialogInputs>}
-            </StyledDialogInner>
-            {btnList && <StyledDialogButtons btnAmt={btnList.length}>
-              {btnList.map((item, index) => <TouchFeedback key={index} activeClassName="active-state"><span onClick={() => this.handleClick(item, (index === btnList.length - 1))}>{item.text}</span></TouchFeedback>)}
-            </StyledDialogButtons>}
-          </StyledDialog>
-        </CSSTransition>
-      </Overlay>
-    )
+  const create = () => {
+    id++
+    insert({
+      content: content(ZoomIn),
+      transitionClassName: ZoomIn.className
+    })
   }
-}
 
-const dialogElement = (type, text, props = {}) => {
-  const DialogDom = ReactDOM.render(<Dialog />, document.createElement('div'))
-  DialogDom.create(type, text, props)
-  return DialogDom
+  create()
+
+  return {
+    close
+  }
 }
 
 const dialog = {}
 
 Object.keys(dialogPreference).forEach(item => {
-  dialog[item] = dialogElement.bind(null, item)
+  dialog[item] = Dialog.bind(null, item)
 })
 
 export default dialog
