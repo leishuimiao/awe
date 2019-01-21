@@ -69,7 +69,7 @@ function Dialog (type, textOptional, optional = {}) {
       <StyledDialog as={animationStyle} center {...rest}>
         <StyledDialogInner hasButton={btnList}>
           <StyledDialogTitle>{title}</StyledDialogTitle>
-          <StyledDialogText>{text}</StyledDialogText>
+          <StyledDialogText onTouchMove={e => e.stopPropagation()}>{text}</StyledDialogText>
           {inputs && <StyledDialogInputs id={`input_${id}`}>
             {inputs.map((item, index) => <StyledDialogInput key={index}><input type={item.type} placeholder={item.placeholder} /></StyledDialogInput>)}
           </StyledDialogInputs>}

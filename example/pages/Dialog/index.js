@@ -31,6 +31,18 @@ export default class index extends Component {
               >Login</Col>
               <Col as={Button} onClick={() => dialog.password('Enter your password', { callback: (password) => dialog.alert(<div>Thank you!<br />Password: {password}</div>) })}>Password</Col>
             </Row>
+            <Row>
+              <Col block as={Button}
+                onClick={() => dialog.alert(<div>
+                  <p>This dialog contains a lot of text.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, quae, ab. Delectus amet optio facere autem sapiente quisquam beatae culpa dolore.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, quae, ab. Delectus amet optio facere autem sapiente quisquam beatae culpa dolore.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, quae, ab. Delectus amet optio facere autem sapiente quisquam beatae culpa dolore.</p>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, quae, ab. Delectus amet optio facere autem sapiente quisquam beatae culpa dolore.</p>
+                </div>
+                )}
+              >Dialog with large message</Col>
+            </Row>
           </Block>
           <BlockTitle>Custom Buttons</BlockTitle>
           <Block strong>

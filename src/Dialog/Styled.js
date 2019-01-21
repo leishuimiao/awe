@@ -39,7 +39,10 @@ export const StyledDialogTitle = styled.div.attrs({
 export const StyledDialogText = styled.div.attrs({
   className: `${UI_NAME}-dialog-text`
 })`
+  max-height: 260px;
+  overflow: auto;
   margin-top: 5px;
+  -webkit-overflow-scrolling: touch;
 `
 
 export const StyledDialogButtons = styled.div.attrs({
