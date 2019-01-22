@@ -48,8 +48,9 @@ function Toast (type, text, {
 
   const effect = effects[position]
 
-  const close = (cb) => {
+  let close = (cb) => {
     remove(cb)
+    close = null // release memory
   }
 
   const create = () => {

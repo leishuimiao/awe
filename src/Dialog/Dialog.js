@@ -81,12 +81,13 @@ function Dialog (type, textOptional, optional = {}) {
     )
   }
 
-  const close = (cb, ...rest) => {
+  let close = (cb, ...rest) => {
     const closeCb = cb && cb.bind(null, ...rest)
     remove(closeCb, {
       content: content(Fade),
       transitionClassName: Fade.className
     })
+    close = null // release memory
   }
 
   const handleClick = (item, isPrimary) => {
