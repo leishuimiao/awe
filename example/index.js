@@ -4,6 +4,7 @@ import { App } from '@src/Core'
 import './assets/css/index.scss'
 
 import IndexPage from './pages'
+import Accordion from './pages/Accordion'
 import Block from './pages/Block'
 import Button from './pages/Button'
 import Dialog from './pages/Dialog'
@@ -15,6 +16,7 @@ import Toast from './pages/Toast'
 
 const routes = [
   { path: '/', component: IndexPage },
+  { path: '/accordion', component: Accordion },
   { path: '/block', component: Block },
   { path: '/button', component: Button },
   { path: '/dialog', component: Dialog },

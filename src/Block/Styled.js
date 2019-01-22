@@ -32,11 +32,11 @@ const StyledBlock = styled.div`
   color: ${theme.grey};
   text-align: justify;
 
-  p:first-child {
+  > p:first-child {
     margin-top: 0;
   }
 
-  p:last-child {
+  > p:last-child {
     margin-bottom: 0;
   }
   

@@ -1,3 +1,4 @@
+export * from './Accordion'
 export * from './Block'
 export * from './Button'
 export * from './Core'

@@ -5,6 +5,10 @@ import { BlockTitle } from '@src/Block'
 
 const componentsArr = [
   {
+    title: 'Accordion',
+    path: '/accordion'
+  },
+  {
     title: 'Block',
     path: '/block'
   },
