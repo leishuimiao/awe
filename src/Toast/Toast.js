@@ -56,17 +56,19 @@ function Toast (type, text, {
   const create = () => {
     if (typeof duration !== 'number') throw new Error('duration must be a Number')
 
+    let insertCb
+
+    if (duration !== 0 && !closeButton) {
+      insertCb = () => {
+        setTimeout(close.bind(callback), duration)
+      }
+    }
+
     insert({
       content: <StyledToast as={effect} position={position} {...rest}>{text}</StyledToast>,
       transitionClassName: effect.className,
       overlayStyle: { background: 'transparent' }
-    })
-
-    if (duration !== 0 && !closeButton) {
-      setTimeout(() => {
-        close(callback)
-      }, duration)
-    }
+    }, insertCb)
   }
 
   create()

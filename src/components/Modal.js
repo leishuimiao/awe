@@ -14,26 +14,60 @@ class Modal extends Component {
       insertProps: null
     }
   }
+
+  modalLock = false;
+
+  modalStack = [];
+
+  addQueue = (insertProps, callback) => {
+    if (this.modalLock) {
+      this.modalStack.push({ insertProps, callback })
+      return true
+    } else {
+      return false
+    }
+  }
+
+  clearQueue = () => {
+    this.modalLock = false
+    if (this.modalStack.length) {
+      const { insertProps, callback } = this.modalStack.shift()
+      this.insert(insertProps, callback)
+    }
+  }
+
   insert = ({ timeout = TIME_OUT, ...rest }, callback) => {
     const insertProps = {
       timeout,
       ...rest
     }
+    if (this.addQueue(insertProps, callback)) return
+    this.modalLock = true
     this.setState({ insertProps })
     setTimeout(() => {
       this.setState({ visible: true }, callback)
     }, 0)
   }
   remove = (callback, props) => {
-    const { timeout, ...rest } = this.state.insertProps
+    const insertPropsState = this.state.insertProps
     const insertProps = {
-      timeout,
-      ...rest,
+      ...insertPropsState,
       ...props
     }
-    this.setState({ visible: false, insertProps }, () => {
+    let timeout = TIME_OUT
+    const newState = { visible: false }
+
+    if (insertPropsState) {
+      timeout = insertProps.timeout || TIME_OUT
+      newState.insertProps = insertProps
+    }
+
+    this.setState(newState, () => {
       setTimeout(() => {
-        this.setState({ insertProps: null }, callback)
+        this.setState({ insertProps: null }, () => {
+          this.clearQueue()
+          callback && callback()
+        })
       }, timeout)
     })
   }
