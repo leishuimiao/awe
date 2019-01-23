@@ -5,12 +5,15 @@ import { Accordion, AccordionItem, AccordionToggle, AccordionContent } from '@sr
 import toast from '@src/Toast'
 
 export default class index extends Component {
+  state = {
+    activeIndex: 0
+  }
   render () {
     return (
       <Page title="Accordion">
         <PageContent>
           <Block>
-            <Accordion>
+            <Accordion activeIndex={this.state.activeIndex}>
               <AccordionItem onToggle={isOpened => toast(`item 1 is ${isOpened ? 'opened' : 'closed'}`)}>
                 <AccordionToggle>+-item 1 (callback)</AccordionToggle>
                 <AccordionContent>

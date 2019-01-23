@@ -55,7 +55,8 @@ module.exports = {
     quotes: ["error", "single"],
     "jsx-quotes": ["error", "prefer-double"],
     "react/prop-types": 0,
-    "react/jsx-no-bind": 0
+    "react/jsx-no-bind": 0,
+    "react/no-did-update-set-state": 0
     //....
     //更多规则可查看https://eslint.org/docs/rules/
   }

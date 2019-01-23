@@ -16,6 +16,9 @@ export default class AccordionItem extends Component {
   getChildContext = () => ({
     itemIndex: this.props.index
   })
+  shouldComponentUpdate (nextProps, nextState, nextContext) {
+    return nextContext.activeIndex !== this.context.activeIndex
+  }
   componentWillUpdate (nextProps, nextState, nextContext) {
     const { onToggle, index } = this.props
     if (!onToggle) return

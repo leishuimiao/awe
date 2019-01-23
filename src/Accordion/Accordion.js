@@ -11,22 +11,30 @@ export default class Accordion extends Component {
     updateActive: PropTypes.func
   }
   static propTypes = {
-    defaultActiveIndex: PropTypes.number
+    activeIndex: PropTypes.number
   }
   static defaultProps = {
-    defaultActiveIndex: null
+    activeIndex: null
   }
   componentDidMount () {
     this.setState({
-      activeIndex: this.props.defaultActiveIndex
+      activeIndex: this.props.activeIndex
     })
+  }
+  componentDidUpdate (prevProps) {
+    const { activeIndex } = this.props
+    if (prevProps.activeIndex !== activeIndex) {
+      this.setState({
+        activeIndex: activeIndex
+      })
+    }
   }
   getChildContext = () => ({
     activeIndex: this.state.activeIndex,
     updateActive: activeIndex => this.setState({ activeIndex })
   })
   render () {
-    const { children, defaultActiveIndex, ...rest } = this.props
+    const { children, activeIndex, ...rest } = this.props
     return (
       <StyledAccordion {...rest}>
         {Children.toArray(children).map((element, index) => cloneElement(element, { index }))}
