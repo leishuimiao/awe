@@ -51,7 +51,7 @@ function Dialog (type, textOptional, optional = {}) {
     optSource = textOptional
     text = textOptional.text
   }
-  let { title = 'Awesome UI', buttons, callback, ...rest } = optSource
+  let { title = 'Awesome UI', buttons, callback, isScroll = true, ...rest } = optSource
 
   const { buttons: preferenceBtns, inputs } = dialogPreference[type] || {}
   let btnList
@@ -69,7 +69,7 @@ function Dialog (type, textOptional, optional = {}) {
       <StyledDialog as={animationStyle} center {...rest}>
         <StyledDialogInner hasButton={btnList}>
           <StyledDialogTitle>{title}</StyledDialogTitle>
-          <StyledDialogText onTouchMove={e => e.stopPropagation()}>{text}</StyledDialogText>
+          <StyledDialogText isScroll={isScroll} onTouchMove={e => isScroll && e.stopPropagation()}>{text}</StyledDialogText>
           {inputs && <StyledDialogInputs id={`input_${id}`}>
             {inputs.map((item, index) => <StyledDialogInput key={index}><input type={item.type} placeholder={item.placeholder} /></StyledDialogInput>)}
           </StyledDialogInputs>}
