@@ -15,27 +15,38 @@ import {
   StyledDivider,
   StyledGroupTitle
 } from './Styled'
+import { AccordionItem, AccordionToggle } from '../Accordion'
 import TouchFeedback from 'rmc-feedback'
 
 class ListItem extends Component {
   static componentName = 'ListItem'
   static propsType = {
     arrow: PropTypes.bool,
+    media: PropTypes.node,
     divider: PropTypes.bool,
-    groupTitle: PropTypes.bool
+    groupTitle: PropTypes.bool,
+    accordionItem: PropTypes.bool
   }
   static defaultProps = {
     arrow: false,
+    media: null,
     divider: false,
     groupTitle: false
   }
+  // 接收父组件参数
+  static contextTypes = {
+    mediaList: PropTypes.bool,
+    accordionList: PropTypes.bool,
+    inlineLabels: PropTypes.bool
+  }
   render () {
-    const { children, arrow, title, after, text, subtitle, header, footer, badge, divider, groupTitle, ...rest } = this.props
+    let { children, as, arrow, title, after, text, subtitle, header, footer, badge, divider, groupTitle, accordionItem, index, media, ...rest } = this.props
     const afterContent = after || badge
+    arrow = accordionItem ? false : arrow
 
     if (groupTitle) return <StyledGroupTitle {...rest}>{title}</StyledGroupTitle>
 
-    const isMediaList = this.context.mediaList
+    const { mediaList, accordionList } = this.context
 
     const titleFragment = (<Fragment>
       <StyledItemTitle>
@@ -46,27 +57,28 @@ class ListItem extends Component {
       {afterContent && <StyledItemAfter>{badge ? <StyledItemBadge>{badge}</StyledItemBadge> : afterContent}</StyledItemAfter>}
     </Fragment>)
 
+    const childrenContent = (<Fragment>
+      {!divider && <TouchFeedback activeClassName="active-state" disabled={!arrow && !accordionItem}>
+        <StyledListItem {...rest} accordionitem={accordionItem} as={accordionItem ? AccordionToggle : as}>
+          {children && !accordionList && <StyledListItemMedia>{children}</StyledListItemMedia>}
+          {media && <StyledListItemMedia>{media}</StyledListItemMedia>}
+          <StyledListItemInner arrow={arrow}>
+            {mediaList ? <StyledItemTitleRow>{titleFragment}</StyledItemTitleRow> : titleFragment}
+            {subtitle && <StyledItemSubtitle>{subtitle}</StyledItemSubtitle>}
+            {text && <StyledItemText>{text}</StyledItemText>}
+          </StyledListItemInner>
+        </StyledListItem>
+      </TouchFeedback>}
+      {divider && <StyledDivider>{title}</StyledDivider>}
+      {accordionList && children}
+    </Fragment>)
+
+    if (accordionItem) return <AccordionItem index={index}>{childrenContent}</AccordionItem>
+
     return (
-      <li>
-        {!divider && <TouchFeedback activeClassName="active-state" disabled={!arrow}>
-          <StyledListItem {...rest}>
-            {children && <StyledListItemMedia>{children}</StyledListItemMedia>}
-            <StyledListItemInner arrow={arrow}>
-              {isMediaList ? <StyledItemTitleRow>{titleFragment}</StyledItemTitleRow> : titleFragment}
-              {subtitle && <StyledItemSubtitle>{subtitle}</StyledItemSubtitle>}
-              {text && <StyledItemText>{text}</StyledItemText>}
-            </StyledListItemInner>
-          </StyledListItem>
-        </TouchFeedback>}
-        {divider && <StyledDivider>{title}</StyledDivider>}
-      </li>
+      <li>{childrenContent}</li>
     )
   }
-}
-
-// 接收父组件参数
-ListItem.contextTypes = {
-  mediaList: PropTypes.bool
 }
 
 export default ListItem

@@ -31,6 +31,7 @@ const StyledBlock = styled.div`
   margin: 35px 0;
   color: ${theme.grey};
   text-align: justify;
+  word-break: break-all;
 
   > p:first-child {
     margin-top: 0;

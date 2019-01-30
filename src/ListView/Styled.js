@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import retinaline, { removeRetinaline } from '../styles/retinaline'
 import theme, { borderColor, mainPadding } from '../Theme'
 import { StyledInputWrap, StyledClearButtonWrap } from '../Inputs/Styled'
+import { StyledAccordion, StyledAccordionItem } from '../Accordion/Styled'
 
 const inputInner = ({ isInput }) => {
   return isInput && css`
@@ -21,19 +22,6 @@ const StyledItemTitle = styled.div.attrs({
   text-overflow: ellipsis;
 `
 
-const StyledListItem = styled.div.attrs({
-  className: `${UI_NAME}-item-content`
-})`
-  position: relative;
-  min-height: 44px;
-  padding-left: ${mainPadding};
-  transition: background .2s ease;
-
-  &.active-state {
-    background: #D9D9D9;
-  }
-`
-
 const StyledListItemInner = styled.div.attrs({
   className: `${UI_NAME}-item-inner`
 })`
@@ -50,17 +38,56 @@ const StyledListItemInner = styled.div.attrs({
   align-items: center;
   justify-content: space-between;
 
-  ${props => props.arrow && `
+  ${props => props.arrow && css`
     padding-right: 35px;
     background-position: 95% center;
     background-position: calc(100% - 15px) center;
     background-repeat: no-repeat;
+    background-size: 8px 13px;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%228%22%20height%3D%2213%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%20%3Cpath%20fill%3D%22%23c7c7cc%22%20d%3D%22M7.86396103%206.5L1.5.13603897.08578644%201.55025253%205.0355339%206.5.08578644%2011.44974747%201.5%2012.86396103l5.65685425-5.65685425z%22%2F%3E%3C%2Fsvg%3E");
   `}
 
   ${retinaline('bottom', borderColor)}
 
   ${props => inputInner(props)}
+`
+
+const StyledListItem = styled.div.attrs({
+  className: `${UI_NAME}-item-content`
+})`
+  position: relative;
+  min-height: 44px;
+  padding-left: ${mainPadding};
+  transition: background .2s ease;
+
+  &.active-state {
+    background: #D9D9D9;
+  }
+
+  ${props => props.accordionitem && css`
+    ${StyledListItemInner} {
+      padding-right: 35px;
+    }
+    
+    &::after {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      width: 8px;
+      height: 13px;
+      margin-top: -6.5px;
+      background-repeat: no-repeat;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20width%3D%228%22%20height%3D%2213%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%20%3Cpath%20fill%3D%22%23c7c7cc%22%20d%3D%22M7.86396103%206.5L1.5.13603897.08578644%201.55025253%205.0355339%206.5.08578644%2011.44974747%201.5%2012.86396103l5.65685425-5.65685425z%22%2F%3E%3C%2Fsvg%3E");
+      background-size: 8px 13px;
+      transition-duration: 0.3s;
+      will-change: transform;
+      content: '';
+
+      .${`${UI_NAME}-accordion-item-opened`} & {
+        transform: rotate(90deg);
+      }
+    }
+  `}
 `
 
 const StyledListItemMedia = styled.div.attrs({
@@ -102,7 +129,7 @@ const StyledList = styled.div`
   margin: 35px 0;
   font-size: 17px;
 
-  ul {
+  ul, ${StyledAccordion} {
     position: relative;
     list-style: none;
     padding: 0;
@@ -118,10 +145,50 @@ const StyledList = styled.div`
     `}
   }
 
-  li {
+  li, ${StyledAccordionItem} {
     &:last-child {
       ${StyledListItemInner} {
         ${removeRetinaline('bottom')}
+      }
+    }
+  }
+  
+  ${StyledAccordionItem} {
+    
+    .${`${UI_NAME}-list`} {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      ul {
+        ${removeRetinaline('top')}
+        ${removeRetinaline('bottom')}
+      }
+    }
+
+    .${`${UI_NAME}-block`} {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      > p {
+        &:first-child {
+          margin-top: 10px;
+        }
+
+        &:last-child {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    &.${`${UI_NAME}-accordion-item-opened`} {
+      > div > ${StyledListItemInner} {
+        ${removeRetinaline('bottom')}
+      }
+
+      + ${StyledAccordionItem} {
+        ${StyledListItemInner} {
+          ${retinaline('top', borderColor)}
+        }
       }
     }
   }
@@ -176,14 +243,14 @@ const StyledList = styled.div`
       margin-right: ${mainPadding};
       border-radius: 7px;
 
-        li:first-child {
+        li:first-child, ${StyledAccordionItem}:first-child {
           ${StyledListItem} {
             border-top-left-radius: 7px;
             border-top-right-radius: 7px;
           }
         }
 
-        li:last-child {
+        li:last-child, ${StyledAccordionItem}:last-child {
           ${StyledListItem} {
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
