@@ -10,12 +10,25 @@
   background: #ddd;
 }
 .page-grid {
-  .awe-col {
-    padding: 5px 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-    color: #000;
-    background: #fff;
+  .awe-row {
+    .awe-col {
+      padding: 5px 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+      color: #000;
+      background: #fff;
+    }
+  }
+
+  .awe-box {
+    .awe-col {
+      color: #000;
+      background: #fff;
+
+      .active-state {
+        background: #f4f4f4;
+      }
+    }
   }
 }

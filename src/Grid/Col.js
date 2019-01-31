@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { StyledCol } from './Styled'
+import { StyledCol, StyledColInner } from './Styled'
+import TouchFeedback from 'rmc-feedback'
 
 class Col extends Component {
   static propTypes = {
@@ -9,14 +10,27 @@ class Col extends Component {
     square: PropTypes.bool
   }
   render () {
+    const { props, context } = this
+    const { isBox } = context
+
+    if (isBox) {
+      const { children, ...rest } = props
+      return (
+        <StyledCol {...rest} {...context}>
+          <TouchFeedback activeClassName="active-state"><StyledColInner>{children}</StyledColInner></TouchFeedback>
+        </StyledCol>
+      )
+    }
+
     return (
-      <StyledCol {...this.props} {...this.context} />
+      <StyledCol {...props} {...context} />
     )
   }
 }
 
 Col.contextTypes = {
   noGap: PropTypes.bool,
+  isBox: PropTypes.bool,
   gap: PropTypes.number,
   childAmt: PropTypes.number
 }

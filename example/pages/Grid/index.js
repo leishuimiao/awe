@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Page, PageContent } from '@src/Core'
 import { Block, BlockTitle } from '@src/Block'
-import { Row, Col } from '@src/Grid'
+import { Row, Col, Box } from '@src/Grid'
 
 export default class index extends Component {
   render () {
@@ -111,6 +111,19 @@ export default class index extends Component {
               </Col>
             </Row>
           </Block>
+          <BlockTitle>宫格(Grid Box)</BlockTitle>
+          <Block style={{ marginBottom: 10 }}><p>宫格拥有着与宽度相同的高度。(The grid box has the same height as the width.)</p></Block>
+          <Box>
+            <Col width={33.33}>Box 1</Col>
+            <Col width={33.33}>Box 2</Col>
+            <Col width={33.33}>Box 3</Col>
+            <Col width={33.33}>Box 4</Col>
+            <Col width={33.33}>Box 5</Col>
+            <Col width={33.33}>Box 6</Col>
+            <Col width={33.33}>Box 7</Col>
+            <Col width={33.33}>Box 8</Col>
+            <Col width={33.33}>Box 9</Col>
+          </Box>
           <BlockTitle>响应式栅格(Responsive Grid)</BlockTitle>
           <Block>
             <p>栅格单元格定义在手机/平板不同的尺寸。(Grid cells have different size on Phone/Tablet.)</p>
