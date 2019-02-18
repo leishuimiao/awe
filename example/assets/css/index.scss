@@ -9,6 +9,21 @@
   color: #999;
   background: #ddd;
 }
+.page-card {
+  .card-header-img {
+    .awe-card-header {
+      height: 40vw;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      align-items: flex-end;
+    }
+
+    .date {
+      color: #8e8e93;
+    }
+  }
+}
 .page-grid {
   .awe-row {
     .awe-col {

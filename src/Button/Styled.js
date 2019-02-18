@@ -131,6 +131,7 @@ const StyledThinWrap = styled.span`
   width: 100%;
   height: 100%;
   padding: 0 10px;
+  border: 1px solid transparent;
   box-sizing: border-box;
   overflow: hidden;
   white-space: nowrap;

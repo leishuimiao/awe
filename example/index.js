@@ -7,6 +7,7 @@ import IndexPage from './pages'
 import Accordion from './pages/Accordion'
 import Block from './pages/Block'
 import Button from './pages/Button'
+import Cards from './pages/Cards'
 import Dialog from './pages/Dialog'
 import Grid from './pages/Grid'
 import Icons from './pages/Icons'
@@ -19,6 +20,7 @@ const routes = [
   { path: '/accordion', component: Accordion },
   { path: '/block', component: Block },
   { path: '/button', component: Button },
+  { path: '/cards', component: Cards },
   { path: '/dialog', component: Dialog },
   { path: '/grid', component: Grid },
   { path: '/icons', component: Icons },

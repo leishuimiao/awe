@@ -1,6 +1,7 @@
 export * from './Accordion'
 export * from './Block'
 export * from './Button'
+export * from './Card'
 export * from './Core'
 export { default as Dialog } from './Dialog'
 export * from './Grid'

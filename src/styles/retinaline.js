@@ -130,8 +130,8 @@ function retinaline (position, color, borderRadius) {
       result = css`
         &:after {
           position: absolute;
-          left: -1px;
-          top: -1px;
+          left: 0;
+          top: 0;
           width: calc(100% + 2px);
           height: calc(100% + 2px);
           box-sizing: border-box;

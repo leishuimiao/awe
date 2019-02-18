@@ -17,6 +17,10 @@ const componentsArr = [
     path: '/button'
   },
   {
+    title: 'Cards',
+    path: '/cards'
+  },
+  {
     title: 'Dialog',
     path: '/dialog'
   },
