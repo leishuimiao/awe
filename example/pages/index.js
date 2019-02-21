@@ -43,6 +43,10 @@ const componentsArr = [
   {
     title: 'Toast',
     path: '/toast'
+  },
+  {
+    title: 'Toolbar & Tabbar',
+    path: '/toolbar'
   }
 ]
 

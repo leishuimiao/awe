@@ -14,6 +14,8 @@ import Icons from './pages/Icons'
 import Inputs from './pages/Inputs'
 import ListView from './pages/ListView'
 import Toast from './pages/Toast'
+import Toolbar from './pages/Toolbar/index'
+import ToolbarDetail from './pages/Toolbar/detail'
 
 const routes = [
   { path: '/', component: IndexPage },
@@ -26,7 +28,9 @@ const routes = [
   { path: '/icons', component: Icons },
   { path: '/inputs', component: Inputs },
   { path: '/listview', component: ListView },
-  { path: '/toast', component: Toast }
+  { path: '/toast', component: Toast },
+  { path: '/toolbar', component: Toolbar, exact: true },
+  { path: '/toolbar/detail/:index', component: ToolbarDetail }
 ]
 
 ReactDOM.render(<App routes={routes} type="hash" />, document.querySelector('#root'))

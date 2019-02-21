@@ -8,4 +8,5 @@ export default {
 }
 
 export const mainPadding = '15px'
+export const shortPadding = '8px'
 export const borderColor = '#C8C7CC'
